@@ -1,7 +1,7 @@
 # PSP-Media-Suite
 <img src="Icon.png" width="20%">  
 A media sync application to load music and videos from YT onto a USB connected PSP (1000/2000/3000/Go) easily.
-Syncs quickly, **no file conversions or extra steps needed**. Supports Linux and Windows 
+Syncs quickly, no file conversions or extra steps needed. Supports Linux and Windows 
 
 ![psp mp3 video youtube loader ss1](Screenshot/ss1.png)
 ![psp mp3 video youtube loader ss2](Screenshot/ss2.png)
