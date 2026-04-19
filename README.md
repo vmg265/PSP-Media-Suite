@@ -11,3 +11,11 @@ Syncs quickly, **no file conversions or extra steps needed**
 4. Supports Music Album art
 5. Music will show up on XMB Music section
 6. Videos would show up in XMB Video section
+
+**HOW TO USE?**
+- Open the PSP-MS (exe for windows, app package on Linux)
+- Connect PSP using a USB Data cable and open "USB Connection" in PSP settings (left most section)
+- Hit refresh on PSP-MS (top right), the device connection should show up with the remaining storage on the memory card (or internal storage in case of PSP go). You can manually choose PSP-Go's internal storage if you prefer, else itll default to the Memorystick
+- Now select Music or Video, search your stuff and add to the queue. You can switch between Video and Music tabs while adding stuff to the queue, itll automatically sort them into mp3 and mp4
+- Hit Send Queue to PSP, and let it do its thing, Music doesnt take long, Videos take less than 1/4th of the actual video duration (so a 4min long Music video would be downloaded, converted and sent within a minute)
+- Done, unplug your psp and enjoy the stuff you downloaded in the Music and Video sections of the XMB
