@@ -23,7 +23,7 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 - Done, unplug your psp and enjoy the stuff you downloaded in the Music and Video sections of the XMB
 
 
-Build from source Instructions-
+# Build from source Instructions-
 **WINDOWS USERS**
 1. Open CMD and download the source- ```git clone https://github.com/vmg265/PSP-Media-Suite.git``` ```cd PSP-Media-Suite```
 2. Download ffmpeg for windows here [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/). Extract the ffmped.exe and place it in the root of your project folder (PSP-Media-Suite)
