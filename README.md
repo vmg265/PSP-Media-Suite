@@ -22,6 +22,8 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 - Hit Send Queue to PSP, and let it do its thing, Music doesnt take long, Videos take less than 1/4th of the actual video duration (so a 4min long Music video would be downloaded, converted and sent within a minute)
 - Done, unplug your psp and enjoy the stuff you downloaded in the Music and Video sections of the XMB
 
+[![PSP-Media-Suite-Demo](https://img.youtube.com/vi/JdQSQSG4Vfc/maxresdefault.jpg)](https://youtu.be/JdQSQSG4Vfc)
+
 
 # Build from source Instructions-
 **WINDOWS USERS**
