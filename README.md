@@ -29,14 +29,14 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 # Build from source Instructions-
 **WINDOWS USERS**
 1. Open CMD and download the source- ```git clone https://github.com/vmg265/PSP-Media-Suite.git``` ```cd PSP-Media-Suite```
-2. Download ffmpeg for windows here [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/). Extract the ffmped.exe and place it in the root of your project folder (PSP-Media-Suite)
+2. Download ffmpeg for windows here [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/). Extract the ffmpeg.exe and place it in the root of your project folder (PSP-Media-Suite)
 3. Install dependencies: Ensure Python 3.10+ is installed: ```pip install pyinstaller yt-dlp psutil Pillow requests mutagen```
-4. Compile:``` python -m PyInstaller --onefile --windowed --icon=icon.ico --add-binary "ffmpeg.exe;." --hidden-import PIL._tkinter_finder app.py```
+4. Compile:``` python -m PyInstaller --onefile --windowed --icon=icon.ico --add-binary "ffmpeg.exe;." --add-data "banner.png;." --hidden-import PIL._tkinter_finder app.py```
 5. After the compilation is done, the app.exe will be available in dist/ folder
 
 **LINUX USERS**
 1. Clone the repo- ```git clone https://github.com/vmg265/PSP-Media-Suite.git``` ```cd PSP-Media-Suite```
 2. sudo apt install ffmpeg and copy the ffmpeg binary into your project folder (PSP-Media_Suite)
 3. Install dependencies- ```pip3 install pyinstaller yt-dlp psutil Pillow requests mutagen```
-4. Compile the executable- ```python3 -m PyInstaller --onefile --windowed --add-binary "ffmpeg:." --hidden-import PIL._tkinter_finder app.py```
+4. Compile the executable- ```python3 -m PyInstaller --onefile --windowed --add-binary "ffmpeg:." --add-data "banner.png:." --hidden-import PIL._tkinter_finder app.py```
 5. After compilation the app will be available in dist/ folder, to make it availble to your desktop, run- ```cp dist/app .``` ```bash install.sh```
