@@ -5,6 +5,7 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 
 ![psp mp3 video youtube loader ss1](Screenshot/ss1-4_linux.png)
 
+
 **Features**
 1. Add Music or Videos to the queue to added to the PSP
 2. Handles mix of Music and Videos to be synced, you can just select a bunch of music and videos together, hit send and grab a cup of tea, let it do its thing
