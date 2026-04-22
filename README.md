@@ -7,12 +7,13 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 
 
 **Features**
-1. Add Music or Videos to the queue to added to the PSP
+1. Add Music or Videos to the queue to added to the PSP, with thumbnails for both music and videos.
 2. Handles mix of Music and Videos to be synced, you can just select a bunch of music and videos together, hit send and grab a cup of tea, let it do its thing
 3. Needs no conversions, mp3 and mp4 files are formatted for PSP
 4. Supports Music Album art
 5. Music will show up on XMB Music section
 6. Videos would show up in XMB Video section
+7. Addded progress log in v1.4 which is now live. v1.4 also brings a slight ui redesign with 2 column view better suited for landscape devices.
 
 **HOW TO USE?**
 - Open the PSP-MS (exe for windows, app package on Linux)
@@ -22,10 +23,11 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 - Hit Send Queue to PSP, and let it do its thing, Music doesnt take long, Videos take less than 1/4th of the actual video duration (so a 4min long Music video would be downloaded, converted and sent within a minute)
 - Done, unplug your psp and enjoy the stuff you downloaded in the Music and Video sections of the XMB
 (NOTE)- Use this tool responsibly and do not download media that you dont own a license for.
+(NOTE)- If search results fail to load in the future, ensure it is up to date by running: pip install -U yt-dlp
 
 # VIDEO DEMO (v1.3) ↓
 [![PSP-Media-Suite-Demo](https://img.youtube.com/vi/JdQSQSG4Vfc/maxresdefault.jpg)](https://youtu.be/JdQSQSG4Vfc)
-
+(video shows v1.3, v1.4 brings new changes which you can learn about in the releases page)
 
 # Build from source Instructions-
 **WINDOWS USERS**
@@ -37,7 +39,7 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 
 **LINUX USERS**
 1. Clone the repo- ```git clone https://github.com/vmg265/PSP-Media-Suite.git``` ```cd PSP-Media-Suite```
-2. sudo apt install ffmpeg and copy the ffmpeg binary into your project folder (PSP-Media_Suite)
+2. ```sudo apt install ffmpeg``` and copy the ffmpeg binary into your project folder (PSP-Media-Suite)
 3. Install dependencies- ```pip3 install pyinstaller yt-dlp psutil Pillow requests mutagen```
 4. Compile the executable- ```python3 -m PyInstaller --onefile --windowed --add-binary "ffmpeg:." --add-data "banner.png:." --hidden-import PIL._tkinter_finder app.py```
 5. After compilation the app will be available in dist/ folder, to make it availble to your desktop, run- ```cp dist/app .``` ```bash install.sh```
