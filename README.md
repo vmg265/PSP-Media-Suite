@@ -3,8 +3,7 @@
 A media sync application to load music and videos from YT onto a USB connected PSP (1000/2000/3000/Go) easily.
 Syncs quickly, no file conversions or extra steps needed. Supports Linux and Windows 
 
-![psp mp3 video youtube loader ss1](Screenshot/ss1.png)
-![psp mp3 video youtube loader ss2](Screenshot/ss2.png)
+![psp mp3 video youtube loader ss1](Screenshot/ss1-4_linux.png)
 
 **Features**
 1. Add Music or Videos to the queue to added to the PSP
