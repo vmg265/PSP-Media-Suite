@@ -43,3 +43,10 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 3. Install dependencies- ```pip3 install pyinstaller yt-dlp psutil Pillow requests mutagen```
 4. Compile the executable- ```python3 -m PyInstaller --onefile --windowed --add-binary "ffmpeg:." --add-data "banner.png:." --hidden-import PIL._tkinter_finder app.py```
 5. After compilation the app will be available in dist/ folder, to make it availble to your desktop, run- ```cp dist/app .``` ```bash install.sh```
+
+
+#To-do
+- add sd card mount support
+- add music playlist capabilities
+- add a manual upload feature to send already downloaded mp3/mp4s
+- add a local view to see what videos and music is already on the storage device
