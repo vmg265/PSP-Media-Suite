@@ -46,7 +46,7 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 
 
 # To-do
-- add sd card mount support
+- add sd card mount support (done in 1.4p)
 - add music playlist capabilities
-- add a manual upload feature to send already downloaded mp3/mp4s
+- add a manual upload feature to send already downloaded mp3/mp4s (done in 1.5p)
 - add a local view to see what videos and music is already on the storage device
