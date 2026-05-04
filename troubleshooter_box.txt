@@ -1,0 +1,19 @@
+PSP-Media suite v1.5 Troubleshooter
+
+> v1.5 brings a troubleshooter file which can be viewed inside a compiled app or the source. This will include my notes and extra info I would want users to know about the release
+
+> If the file is too large is size or duration, for example I uploaded a 3hr long audiobook to the psp, it uploaded fine and the file could be seen in the storage, but when I would scroll down the list in Music folder on the psp xmb it would get stuck at it for sometime and will not load further items. This could be some limitation on the PSP hardware or storage filesystem. I will need to test this behaviour further, a discussion can be done on github issues if you guys face the same issue
+
+> 1.4p was downloading thumbnails for most mp3/mp4s but some youtube music/videos would never show a thumbnail on the PSP itself. This issue was addressed in the v1.5 and has been tested multiple times, still I would appreciate any testing and feedback done by you on this feature
+
+
+
+
+(BASIC GUIDE) HOW TO USE- 
+- Open the PSP-MS (exe for windows which is launchable as is, Linux releases are app packages which can be run directly by running it with ./app, or simply running the install script: bash install.sh)
+- Connect PSP using a USB Data cable and open "USB Connection" in PSP settings (left most section)
+- Hit refresh on PSP-MS (top right), the device connection should show up with the remaining storage on the memory card (or internal storage in case of PSP go). PSP-MS automatically searches for PSP formatted devices (including internal storage on PSP go and sd card readers with psp's sd card)
+- Now select Music or Video, search your stuff and add to the queue. You can switch between Video and Music tabs while adding stuff to the queue, itll automatically sort them into mp3 and mp4. You can also add a local already downloaded media to the queue
+- Hit Send Queue to PSP, and let it do its thing, Music doesnt take long, Videos take less than 1/4th of the actual video duration (so a 4min long video would be downloaded, converted and sent within a minute)
+- Done, unplug your psp and enjoy the stuff you downloaded in the Music and Video sections of the XMB 
+(NOTE)- Use this tool responsibly and do not download media that you dont own a license for
