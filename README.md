@@ -45,7 +45,7 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 5. After compilation the app will be available in dist/ folder, to make it availble to your desktop, run- ```cp dist/app .``` ```bash install.sh```
 
 
-#To-do
+# To-do
 - add sd card mount support
 - add music playlist capabilities
 - add a manual upload feature to send already downloaded mp3/mp4s
