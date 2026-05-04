@@ -18,23 +18,22 @@ mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/share/icons/hicolor/512x512/apps
 
 # 1. Copy the executable
-# Assumes you have already run 'cp dist/app .' in the previous step
 if [ -f "app" ]; then
     cp app ~/.local/bin/psp-media-suite
     chmod +x ~/.local/bin/psp-media-suite
 else
-    echo "Error: Binary 'app' not found in current directory. Did you run 'cp dist/app .'?"
+    echo "Error: Binary 'app' not found. Did you run 'cp dist/app .'?"
     exit 1
 fi
 
-# 2. Copy the icon (UPDATED to Icon.png)
+# 2. Copy the icon (Using the new Icon.png)
 if [ -f "Icon.png" ]; then
     cp Icon.png ~/.local/share/icons/hicolor/512x512/apps/psp-media-suite-icon.png
 else
-    echo "Warning: Icon.png not found. Shortcut will be created without an icon."
+    echo "Warning: Icon.png not found in current directory."
 fi
 
-# 3. Generate the .desktop file using the absolute path
+# 3. Generate the .desktop file
 cat <<EOF > ~/.local/share/applications/psp-media-suite.desktop
 [Desktop Entry]
 Name=PSP Media Suite
@@ -48,10 +47,10 @@ EOF
 
 chmod +x ~/.local/share/applications/psp-media-suite.desktop
 
-# 4. Force Linux to rebuild the icon and desktop databases
+# 4. Refresh databases
 touch ~/.local/share/icons/hicolor
 if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database ~/.local/share/applications
 fi
 
-echo "Installation Complete! You can now find PSP Media Suite in your application menu."
+echo "Installation Complete! PSP Media Suite is now in your app menu."
