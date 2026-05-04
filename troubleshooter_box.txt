@@ -6,7 +6,7 @@ PSP-Media suite v1.5 Troubleshooter
 
 > 1.4p was downloading thumbnails for most mp3/mp4s but some youtube music/videos would never show a thumbnail on the PSP itself. This issue was addressed in the v1.5 and has been tested multiple times, still I would appreciate any testing and feedback done by you on this feature
 
-
+> If you see an error saying sign required to prevent bot interaction (you are being ratelimited by YT if you recently downloaded a ton of videos) this error should go away after some cooldown time, if you have a VPN, try switching to a different country and running the app.
 
 
 (BASIC GUIDE) HOW TO USE- 
