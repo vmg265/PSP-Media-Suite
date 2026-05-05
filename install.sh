@@ -26,7 +26,7 @@ else
     exit 1
 fi
 
-# 2. Copy the icon (Using the new Icon.png)
+# 2. Copy the icon 
 if [ -f "Icon.png" ]; then
     cp Icon.png ~/.local/share/icons/hicolor/512x512/apps/psp-media-suite-icon.png
 else
