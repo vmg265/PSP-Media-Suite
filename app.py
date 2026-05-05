@@ -26,7 +26,7 @@ class PSPMediaSuite:
         
         self.bg_color = "#ffffff"
         self.dark_cyan = "#0a2129"
-        self.accent_color = "#0a1833" 
+        self.accent_color = "#062340" 
         self.root.configure(bg=self.bg_color)
         
         self.drives = {}
@@ -34,6 +34,7 @@ class PSPMediaSuite:
         self.photo_references = [] 
         self.is_processing = False
         
+        # Setup Animation Engine for Banner Gradient & Pulse Bar
         self.canvas_images = {}
         self.gradient_offset = 0
         self.pulse_phase = 0.0
@@ -47,7 +48,7 @@ class PSPMediaSuite:
         right_panel = tk.Frame(header_container, bg=self.bg_color)
         right_panel.pack(side="right", fill="y", anchor="e")
 
-        # Hamburger Menu 
+        # Padded Hamburger Menu 
         self.hamburger_canvas = tk.Canvas(right_panel, bg=self.bg_color, highlightthickness=0, width=42, height=38)
         self.hamburger_canvas.pack(side="top", anchor="e", pady=(0, 5), padx=5)
         self.hamburger_canvas.bind("<Configure>", lambda e: self.draw_rounded(self.hamburger_canvas, e.width, e.height, 10, "#ffffff", "☰", text_color="black", font=("Arial", 16), pad=4))
@@ -56,9 +57,9 @@ class PSPMediaSuite:
         controls_row = tk.Frame(right_panel, bg=self.bg_color)
         controls_row.pack(side="top", anchor="e")
 
-        self.combo_bg = tk.Canvas(controls_row, bg=self.bg_color, highlightthickness=0, width=250, height=35)
+        self.combo_bg = tk.Canvas(controls_row, bg=self.bg_color, highlightthickness=0, width=230, height=35)
         self.combo_bg.pack(side="left")
-        self.combo_bg.bind("<Configure>", lambda e: self.draw_rounded(self.combo_bg, e.width, e.height, 12, "#ffffff", border_color="#cccccc"))
+        self.combo_bg.bind("<Configure>", lambda e: self.draw_rounded(self.combo_bg, e.width, e.height, 6, "#ffffff", border_color="#cccccc"))
         
         style = ttk.Style()
         style.theme_use('clam')
@@ -72,15 +73,15 @@ class PSPMediaSuite:
         self.refresh_canvas.bind("<Configure>", lambda e: self.draw_rounded(self.refresh_canvas, e.width, e.height, 6, "#ffffff", "🔄 REFRESH", text_color="black", font=("Arial", 9, "bold"), border_color="#cccccc"))
         self.refresh_canvas.bind("<Button-1>", lambda e: self.scan_usb())
 
-        # Left Panel - Banner
-        self.banner_canvas = tk.Canvas(header_container, bg=self.bg_color, highlightthickness=0, height=80)
+        # Left Panel (Banner)
+        self.banner_canvas = tk.Canvas(header_container, bg=self.bg_color, highlightthickness=0, height=90)
         self.banner_canvas.pack(side="left", fill="both", expand=True, padx=(0, 20))
 
-        # --- MAIN 2 columns ---
+        # --- MAIN UI (2 Columns) ---
         main_content = tk.Frame(root, bg=self.bg_color)
         main_content.pack(fill="both", expand=True, padx=20, pady=(10, 0))
 
-        # LEFT COLUMN- Tabs and Search
+        # LEFT COLUMN: Tabs & Search
         left_col = tk.Frame(main_content, bg=self.bg_color)
         left_col.pack(side="left", fill="both", expand=True, padx=(0, 10))
 
@@ -89,16 +90,20 @@ class PSPMediaSuite:
         
         self.active_tab = "audio"
         
-        self.music_tab_btn = tk.Canvas(tab_bar, bg=self.bg_color, highlightthickness=0, width=160, height=35)
+        # Left Aligned Fixed-Width Tabs (ADDED <Configure> BINDINGS FIX)
+        self.music_tab_btn = tk.Canvas(tab_bar, bg=self.bg_color, highlightthickness=0, width=190, height=45)
         self.music_tab_btn.pack(side="left", padx=(0, 5))
+        self.music_tab_btn.bind("<Configure>", lambda e: self.draw_tab(self.music_tab_btn, e.width, e.height, "audio", "🎵 MUSIC"))
         self.music_tab_btn.bind("<Button-1>", lambda e: self.switch_tab("audio"))
         
-        self.video_tab_btn = tk.Canvas(tab_bar, bg=self.bg_color, highlightthickness=0, width=160, height=35)
-        self.video_tab_btn.pack(side="left", padx=(5, 5))
+        self.video_tab_btn = tk.Canvas(tab_bar, bg=self.bg_color, highlightthickness=0, width=190, height=45)
+        self.video_tab_btn.pack(side="left", padx=(5, 0))
+        self.video_tab_btn.bind("<Configure>", lambda e: self.draw_tab(self.video_tab_btn, e.width, e.height, "video", "🎬 VIDEO"))
         self.video_tab_btn.bind("<Button-1>", lambda e: self.switch_tab("video"))
 
-        self.playlist_tab_btn = tk.Canvas(tab_bar, bg=self.bg_color, highlightthickness=0, width=160, height=35)
+        self.playlist_tab_btn = tk.Canvas(tab_bar, bg=self.bg_color, highlightthickness=0, width=190, height=45)
         self.playlist_tab_btn.pack(side="left", padx=(5, 0))
+        self.playlist_tab_btn.bind("<Configure>", lambda e: self.draw_tab(self.playlist_tab_btn, e.width, e.height, "playlist", "🎶 PLAYLIST"))
         self.playlist_tab_btn.bind("<Button-1>", lambda e: self.switch_tab("playlist"))
 
         self.tab_container = tk.Frame(left_col, bg=self.bg_color)
@@ -116,6 +121,7 @@ class PSPMediaSuite:
         right_col = tk.Frame(main_content, bg=self.bg_color)
         right_col.pack(side="right", fill="both", expand=True, padx=(10, 0))
 
+        # Queue Header with Clear All Button
         q_header = tk.Frame(right_col, bg=self.bg_color)
         q_header.pack(fill="x", pady=(0, 5))
         tk.Label(q_header, text="Transfer Queue", bg=self.bg_color, fg=self.accent_color, font=("MS Sans Serif", 10, "bold")).pack(side="left")
@@ -164,6 +170,7 @@ class PSPMediaSuite:
         self.switch_tab("audio")
         self.root.update_idletasks() 
         
+        # We can leave these here as fallbacks, but the <Configure> bindings above will handle the Windows bug
         m_w, m_h = self.music_tab_btn.winfo_width(), self.music_tab_btn.winfo_height()
         if m_w > 1: self.draw_tab(self.music_tab_btn, m_w, m_h, "audio", "🎵 MUSIC")
         v_w, v_h = self.video_tab_btn.winfo_width(), self.video_tab_btn.winfo_height()
@@ -173,7 +180,7 @@ class PSPMediaSuite:
         
         self.root.after(50, self.animate_ui)
 
-    # --- ANIMATION ---
+    # --- ANIMATION & DRAWING ENGINE ---
     def generate_master_gradient(self):
         size = 3000
         base = Image.new('RGB', (size, 1))
@@ -260,7 +267,7 @@ class PSPMediaSuite:
         if self.active_tab == tab_name:
             self.draw_rounded(canvas, w, h, 6, self.accent_color, text, text_color="white")
         else:
-            self.draw_rounded(canvas, w, h, 6, "#e0e0e0", text, text_color="grey")
+            self.draw_rounded(canvas, w, h, 6, "#e0e0e0", text, text_color="black")
 
     def switch_tab(self, tab_name):
         self.active_tab = tab_name
@@ -323,7 +330,7 @@ class PSPMediaSuite:
         self.btn_state = state
         self.push_btn_canvas.event_generate("<Configure>")
 
-    # --- UI COMPS ---
+    # --- UI COMPONENTS ---
     def show_about(self):
         about = tk.Toplevel(self.root)
         about.title("About")
@@ -423,7 +430,7 @@ class PSPMediaSuite:
         search_bg.bind("<Configure>", lambda e: self.draw_rounded(e.widget, e.width, e.height, 6, "#ffffff", border_color="#cccccc"))
 
         search_var = tk.StringVar()
-        entry = tk.Entry(search_bg, textvariable=search_var, fg="black", font=("MS Sans Serif", 10), borderwidth=0, relief="flat", bg="#ffffff", insertbackground="black")
+        entry = tk.Entry(search_bg, textvariable=search_var, fg="black", font=("MS Sans Serif", 12), borderwidth=0, relief="flat", bg="#ffffff", insertbackground="black")
         entry.place(relx=0.03, rely=0.5, relwidth=0.94, anchor="w")
         
         entry.insert(0, "Search YouTube...")
@@ -669,7 +676,7 @@ class PSPMediaSuite:
 
         x_btn = tk.Canvas(thumb_container, bg="#f0f0f0", highlightthickness=0, width=24, height=24)
         x_btn.place(x=0, y=0)
-        self.draw_rounded(x_btn, 24, 24, 6, "#ff4444", "X", font=("Arial", 10, "bold"))
+        self.draw_rounded(x_btn, 24, 24, 10, "#ff4444", "X", font=("Arial", 10, "bold"))
 
         q_text = f"{icon} [{item['formatted_time']}] {item['title'][:50]}"
         lbl = tk.Label(q_row, text=q_text, bg="#f0f0f0", font=("Arial", 9), anchor="w", justify="left")
@@ -713,7 +720,7 @@ class PSPMediaSuite:
     def pulse_item(self, item, toggle=False):
         if item.get('status') != 'processing': return
         color = "#d9f2f2" if toggle else "#f0f0f0" 
-        self.draw_rounded(item['status_cvs'], 36, 36, 12, color, "⏳", text_color="black", font=("Arial", 14), pad=4)
+        self.draw_rounded(item['status_cvs'], 36, 36, 6, color, "⏳", text_color="black", font=("Arial", 14), pad=4)
         self.root.after(600, self.pulse_item, item, not toggle)
 
     def process_queue(self):
@@ -739,6 +746,8 @@ class PSPMediaSuite:
             self.root.after(0, lambda v=(i/total)*100: self.update_progress(v))
             self.root.after(0, lambda msg=f"Processing: {item['title'][:40]}": self.write_log(msg))
             
+            clean_title = os.path.splitext(item['title'])[0] if item.get('is_local') else item['title']
+            clean_name = "".join(x for x in clean_title if x.isalnum() or x in " .-_")[:100]
             item['status'] = 'processing'
             self.root.after(0, self.pulse_item, item)
             
