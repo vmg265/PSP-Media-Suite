@@ -905,6 +905,7 @@ class PSPMediaSuite:
                                 img = Image.open("temp_thumb.jpg")
                         except: pass
                     else:
+                        # 1. Download the raw video first
                         opts = {
                             'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best', 
                             'ffmpeg_location': ff_path, 
@@ -916,12 +917,14 @@ class PSPMediaSuite:
                             info_dict = ydl.extract_info(item['url'], download=True)
                             img = self._get_best_thumbnail(info_dict, item.get('thumb'))
                             
+                        # 2. Find whatever raw file yt-dlp just created
                         raw_file = None
                         for f in os.listdir("."):
                             if f.startswith("temp_raw.") and f != "temp_raw.mp3":
                                 raw_file = f
                                 break
                                 
+                        # 3. Force explicit FFmpeg conversion for PSP hardware
                         if raw_file:
                             self.root.after(0, lambda: self.write_log("Converting video to PSP format..."))
                             subprocess.run([ff_path, "-y", "-i", raw_file, "-c:v", "libx264", "-profile:v", "baseline", "-level", "3.0", 
