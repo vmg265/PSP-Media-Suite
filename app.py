@@ -26,7 +26,7 @@ class PSPMediaSuite:
         
         self.bg_color = "#ffffff"
         self.dark_cyan = "#0a2129"
-        self.accent_color = "#062340" 
+        self.accent_color = "#16417d" 
         self.root.configure(bg=self.bg_color)
         
         self.drives = {}
@@ -90,7 +90,7 @@ class PSPMediaSuite:
         
         self.active_tab = "audio"
         
-        # Left Aligned Fixed-Width Tabs (ADDED <Configure> BINDINGS FIX)
+        # Left Aligned Fixed-Width Tabs
         self.music_tab_btn = tk.Canvas(tab_bar, bg=self.bg_color, highlightthickness=0, width=190, height=45)
         self.music_tab_btn.pack(side="left", padx=(0, 5))
         self.music_tab_btn.bind("<Configure>", lambda e: self.draw_tab(self.music_tab_btn, e.width, e.height, "audio", "🎵 MUSIC"))
@@ -237,8 +237,8 @@ class PSPMediaSuite:
             draw_shape(x0, y0, x1, y1, rad, color)
             
         if text:
-            txt_id = canvas.create_text(w/2, h/2, text=text, font=font, fill=text_color)
-            canvas.tag_bind(txt_id, "<Button-1>", lambda e: canvas.event_generate("<Button-1>"))
+            # FIX: Removed tag_bind to prevent multiple event generation
+            canvas.create_text(w/2, h/2, text=text, font=font, fill=text_color)
 
     def draw_gradient(self, canvas, w, h, rad, text="", font=("MS Sans Serif", 10, "bold"), text_color="white", anchor="center"):
         canvas.delete("all")
@@ -259,15 +259,15 @@ class PSPMediaSuite:
         canvas.create_image(x0, y0, anchor="nw", image=photo)
         if text:
             txt_x = w/2 if anchor == "center" else 30
-            txt_id = canvas.create_text(txt_x, h/2, text=text, font=font, fill=text_color, anchor=anchor)
-            canvas.tag_bind(txt_id, "<Button-1>", lambda e: canvas.event_generate("<Button-1>"))
+            # FIX: Removed tag_bind to prevent multiple event generation
+            canvas.create_text(txt_x, h/2, text=text, font=font, fill=text_color, anchor=anchor)
 
     def draw_tab(self, canvas, w, h, tab_name, text):
         if w <= 4 or h <= 4: return
         if self.active_tab == tab_name:
             self.draw_rounded(canvas, w, h, 6, self.accent_color, text, text_color="white")
         else:
-            self.draw_rounded(canvas, w, h, 6, "#e0e0e0", text, text_color="black")
+            self.draw_rounded(canvas, w, h, 6, "#e0e0e0", text, text_color="grey")
 
     def switch_tab(self, tab_name):
         self.active_tab = tab_name
@@ -656,9 +656,9 @@ class PSPMediaSuite:
         elif media_type == "video": icon = "🎬 "
         else: icon = "🎶 "
         
-        status_cvs = tk.Canvas(q_row, bg="#f0f0f0", highlightthickness=0, width=36, height=36)
+        status_cvs = tk.Canvas(q_row, bg="#f0f0f0", highlightthickness=0, width=40, height=40)
         status_cvs.pack(side="right", padx=15)
-        self.draw_rounded(status_cvs, 36, 36, 6, "#e0e0e0", pad=4)
+        self.draw_rounded(status_cvs, 40, 40, 12, "#e0e0e0", pad=6)
 
         thumb_container = tk.Frame(q_row, bg="#f0f0f0", width=60, height=55)
         thumb_container.pack(side="left", padx=(5, 10))
@@ -676,7 +676,7 @@ class PSPMediaSuite:
 
         x_btn = tk.Canvas(thumb_container, bg="#f0f0f0", highlightthickness=0, width=24, height=24)
         x_btn.place(x=0, y=0)
-        self.draw_rounded(x_btn, 24, 24, 10, "#ff4444", "X", font=("Arial", 10, "bold"))
+        self.draw_rounded(x_btn, 24, 24, 12, "#ff4444", "X", font=("Arial", 10, "bold"))
 
         q_text = f"{icon} [{item['formatted_time']}] {item['title'][:50]}"
         lbl = tk.Label(q_row, text=q_text, bg="#f0f0f0", font=("Arial", 9), anchor="w", justify="left")
@@ -720,7 +720,7 @@ class PSPMediaSuite:
     def pulse_item(self, item, toggle=False):
         if item.get('status') != 'processing': return
         color = "#d9f2f2" if toggle else "#f0f0f0" 
-        self.draw_rounded(item['status_cvs'], 36, 36, 6, color, "⏳", text_color="black", font=("Arial", 14), pad=4)
+        self.draw_rounded(item['status_cvs'], 40, 40, 12, color, "⏳", text_color="black", font=("Arial", 14), pad=6)
         self.root.after(600, self.pulse_item, item, not toggle)
 
     def process_queue(self):
@@ -836,7 +836,7 @@ class PSPMediaSuite:
                             f.write("\n".join(m3u8_lines))
                             
                     item['status'] = 'success'
-                    self.root.after(0, lambda i=item: self.draw_rounded(i['status_cvs'], 36, 36, 6, "#d4f0d4", "✓", text_color="black", font=("Arial", 14, "bold"), pad=4))
+                    self.root.after(0, lambda i=item: self.draw_rounded(i['status_cvs'], 40, 40, 12, "#d4f0d4", "✓", text_color="black", font=("Arial", 14, "bold"), pad=6))
 
                 elif item['type'] == 'audio':
                     clean_title = os.path.splitext(item['title'])[0] if item.get('is_local') else item['title']
@@ -888,7 +888,7 @@ class PSPMediaSuite:
                     shutil.move("temp_raw.mp3", os.path.join(target_dir, clean_name + ".mp3"))
                     
                     item['status'] = 'success'
-                    self.root.after(0, lambda i=item: self.draw_rounded(i['status_cvs'], 36, 36, 6, "#d4f0d4", "✓", text_color="black", font=("Arial", 14, "bold"), pad=4))
+                    self.root.after(0, lambda i=item: self.draw_rounded(i['status_cvs'], 40, 40, 12, "#d4f0d4", "✓", text_color="black", font=("Arial", 14, "bold"), pad=6))
 
                 else:
                     clean_title = os.path.splitext(item['title'])[0] if item.get('is_local') else item['title']
@@ -906,13 +906,26 @@ class PSPMediaSuite:
                         except: pass
                     else:
                         opts = {
-                            'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best', 'ffmpeg_location': ff_path, 'outtmpl': 'temp.%(ext)s', 'nopart': True,
-                            'continuedl': False, 'postprocessors': [{'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}],
-                            'postprocessor_args': ['-c:v', 'libx264', '-profile:v', 'baseline', '-level', '3.0', '-pix_fmt', 'yuv420p', '-vf', 'scale=480:272', '-b:v', '768k', '-c:a', 'aac', '-b:a', '128k', '-ar', '48000']
+                            'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best', 
+                            'ffmpeg_location': ff_path, 
+                            'outtmpl': 'temp_raw.%(ext)s', 
+                            'nopart': True,
+                            'continuedl': False
                         }
                         with yt_dlp.YoutubeDL(opts) as ydl:
                             info_dict = ydl.extract_info(item['url'], download=True)
                             img = self._get_best_thumbnail(info_dict, item.get('thumb'))
+                            
+                        raw_file = None
+                        for f in os.listdir("."):
+                            if f.startswith("temp_raw.") and f != "temp_raw.mp3":
+                                raw_file = f
+                                break
+                                
+                        if raw_file:
+                            self.root.after(0, lambda: self.write_log("Converting video to PSP format..."))
+                            subprocess.run([ff_path, "-y", "-i", raw_file, "-c:v", "libx264", "-profile:v", "baseline", "-level", "3.0", 
+                                            "-pix_fmt", "yuv420p", "-vf", "scale=480:272", "-b:v", "768k", "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "temp.mp4"], startupinfo=startupinfo)
                                 
                     if 'img' in locals() and img:
                         try:
@@ -939,13 +952,14 @@ class PSPMediaSuite:
                     shutil.move("temp.mp4", os.path.join(target_dir, clean_name + ".mp4"))
 
                     item['status'] = 'success'
-                    self.root.after(0, lambda i=item: self.draw_rounded(i['status_cvs'], 36, 36, 6, "#d4f0d4", "✓", text_color="black", font=("Arial", 14, "bold"), pad=4))
+                    self.root.after(0, lambda i=item: self.draw_rounded(i['status_cvs'], 40, 40, 12, "#d4f0d4", "✓", text_color="black", font=("Arial", 14, "bold"), pad=6))
 
             except Exception as e:
                 self.write_log(f"Transfer Error: {e}")
                 item['status'] = 'error'
-                self.root.after(0, lambda i=item: self.draw_rounded(i['status_cvs'], 36, 36, 6, "#ffd9d9", "X", text_color="black", font=("Arial", 14, "bold"), pad=4))
+                self.root.after(0, lambda i=item: self.draw_rounded(i['status_cvs'], 40, 40, 12, "#ffd9d9", "X", text_color="black", font=("Arial", 14, "bold"), pad=6))
             
+            # Post-cleanup
             for f in os.listdir("."):
                 if f.startswith("temp.") or f.startswith("temp_raw.") or f == "temp_thumb.jpg" or f == "cover.jpg":
                     try: os.remove(f)
