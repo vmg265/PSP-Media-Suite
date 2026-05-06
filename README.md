@@ -7,7 +7,6 @@ Syncs quickly, no file conversions or extra steps needed. Supports Linux and Win
 Telegram Support Group: https://t.me/psp_mediasuite
 <br>
 <br>
-Screenshots
 
 ![psp mp3 video youtube loader ss1-5-1](Screenshot/ss1-5-1.png)
 ![psp mp3 video youtube loader ss1-5-1](Screenshot/ss1-5-2.png)
