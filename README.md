@@ -28,6 +28,7 @@ v1.6 also adds creating a new , and managing items inside a, playlist on your PS
 8. Videos would show up in XMB's Video section
 9. Addded progress log in v1.4 which is now live. v1.4 also brings a slight ui redesign with 2 column view better suited for landscape devices.
 10. v1.5 brings a cleaner ui experience and improvements both functional and aesthetic
+11. v1.6 bring management of playlists, music and video files that are already stored on the psp along with a UI redesign
 
 **HOW TO USE?**
 - Open the PSP-MS (exe for windows, app package on Linux)
