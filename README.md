@@ -8,7 +8,7 @@ Telegram Support Group: https://t.me/psp_mediasuite
 <br>
 <br>
 
-v1.6 Redesign
+**v1.6 Redesign**
 ![psp mp3 video youtube loader ss1-6-1](Screenshot/ss1-6-main.png)
 
 v1.6 adds management of already existing music and video files on the PSP
