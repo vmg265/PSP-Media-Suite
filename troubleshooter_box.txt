@@ -1,5 +1,9 @@
 PSP-Media suite v1.5 Troubleshooter
 
+> 1.6 brings yet again a UI redesign streamlining the usage and simplified interface, with a dark background and updated accents, a new gradient animated banner.
+> 1.6 also introduces management of media including adding/removing playlists and adding/removing items inside the playlists. 
+> 1.6 also brings managing Music and Videos available locally on the PSP, which means you can view rename and delete files from your Music and Videos folders of the PSP 
+
 > v1.5 brings a troubleshooter file which can be viewed inside a compiled app or the source. This will include my notes and extra info I would want users to know about the release
 
 > If the file is too large is size or duration, for example I uploaded a 3hr long audiobook to the psp, it uploaded fine and the file could be seen in the storage, but when I would scroll down the list in Music folder on the psp xmb it would get stuck at it for sometime and will not load further items. This could be some limitation on the PSP hardware or storage filesystem. I will need to test this behaviour further, a discussion can be done on github issues if you guys face the same issue
@@ -17,3 +21,5 @@ PSP-Media suite v1.5 Troubleshooter
 - Hit Send Queue to PSP, and let it do its thing, Music doesnt take long, Videos take less than 1/4th of the actual video duration (so a 4min long video would be downloaded, converted and sent within a minute)
 - Done, unplug your psp and enjoy the stuff you downloaded in the Music and Video sections of the XMB 
 (NOTE)- Use this tool responsibly and do not download media that you dont own a license for
+
+Any bugs you find, please report them on t.me/psp_mediasuite channel's discussion group
