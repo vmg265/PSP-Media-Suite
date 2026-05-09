@@ -8,8 +8,14 @@ Telegram Support Group: https://t.me/psp_mediasuite
 <br>
 <br>
 
-![psp mp3 video youtube loader ss1-5-1](Screenshot/ss1-5-1.png)
-![psp mp3 video youtube loader ss1-5-1](Screenshot/ss1-5-2.png)
+v1.6 Redesign
+![psp mp3 video youtube loader ss1-6-1](Screenshot/ss1-6-main.png)
+
+v1.6 adds management of already existing music and video files on the PSP
+![psp mp3 video youtube loader ss1-6-2](Screenshot/ss1-6-musics.png)
+
+v1.6 also adds creating a new , and managing items inside a, playlist on your PSP
+![psp mp3 video youtube loader ss1-6-3](Screenshot/ss1-6-playlistmgmt.png)
 
 **Features**
 1. Add Music, Music Playlists and Videos to the PSP, with thumbnails for music, music playlists and videos.
@@ -56,4 +62,4 @@ Telegram Support Group: https://t.me/psp_mediasuite
 - add sd card mount support (done in 1.4p)
 - add music playlist capabilities (done in v1.5p)
 - add a manual upload feature to send already downloaded mp3/mp4s (done in 1.5p)
-- add a local view to see what videos and music is already on the storage device
+- add a local view to see what videos and music is already on the storage device (done in 1.6p)
