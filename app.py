@@ -1220,7 +1220,7 @@ class PSPMediaSuite:
 
         tk.Label(inner, text="PSP Media Suite", font=("Segoe UI", 14, "bold"),
                  fg=TEXT, bg=SURFACE).pack()
-        tk.Label(inner, text="by vmg265  ·  v1.5", font=("Segoe UI", 9),
+        tk.Label(inner, text="by vmg265  ·  v1.6", font=("Segoe UI", 9),
                  fg=TEXT_DIM, bg=SURFACE).pack(pady=(4, 16))
 
         for label, url in [("⭐  GitHub", "https://github.com/vmg265/PSP-Media-Suite"),
