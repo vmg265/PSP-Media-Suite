@@ -1,5 +1,10 @@
 PSP-Media suite v1.5 Troubleshooter
 
+
+> 1.7 fixes some minor issues with file deletion and better support for macOS. Going forward the app's troubleshooter will show updates from this github file automatically without needing to compile it into the app itself
+
+> 1.7 also attempts to fix ratelimits in ytdlp when attempting to download a lot of media or multiple large playlists
+ 
 > 1.6 brings yet again a UI redesign streamlining the usage and simplified interface, with a dark background and updated accents, a new gradient animated banner.
 > 1.6 also introduces management of media including adding/removing playlists and adding/removing items inside the playlists. 
 > 1.6 also brings managing Music and Videos available locally on the PSP, which means you can view rename and delete files from your Music and Videos folders of the PSP 
