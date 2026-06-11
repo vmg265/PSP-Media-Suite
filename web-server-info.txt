@@ -1,3 +1,8 @@
-ChromeOS user? If you use a Chromebook or a ChromeOS PC, you need to use port forwarding option from your Linux Dev Environment. 
+Welcome to the web server utilty introduced i v1.8 of PSP Media Suite. This allows you to download music and videos using the same pipeline USB mode uses but on the fly. This means until you are on the same local network as your computer running PSP-MS the PSP can load up a search page to search music and videos on the internet and download them to the correct location on the psp's memory stick (or internal storage in case of PSPGo)
+
+
+> Windows/Mac- Just input the above IP address with a "http://" prefix with the port specified (eg. http://192.168.1.1/8080). You can add this to the browser's bookmarks to use the tool again easily. PSP-MS should be running in the background for the server to continue functioning properly, it should not affect battery consumption when not in use.
+
+> ChromeOS user? If you use a Chromebook or a ChromeOS PC, you need to use port forwarding option from your Linux Dev Environment. 
 You need to input your Chromebook's Local IP instead of the one shown above, you can view this in your Quick settings panel, tap the WiFi option and when you see the available WiFi sources near you, there'll be a 'i' button which'll show your IP address. 
 You need to paste this address into your PSP browser. eg. if PSP-MS says 'connect to http://100.115.92.196:8080' and the local IP is 192.168.1.1 then you need to paste http://192.168.1.1:8080 into the PSP browser.
