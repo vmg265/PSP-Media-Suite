@@ -1,6 +1,11 @@
 PSP-Media suite v1.5 Troubleshooter
 
+> 1.7 Update (NEW) A WebServer Music/Video search and download feature has been added to PSP-MS. This can be enabled within the app (beside connected drive drop-down in the top right side)
+- This was my main goal from the start with PSP-MS to have a storefront to easily search and download music and videos onto the PSP's local storage because I carry my pspgo as a portable media device for music mainly. And I hadn't been able to do this successfully so I settled for adding media over usb/SD card, (until now)
+- Its pretty easy to use, you just hit 'start server' button, it tells you your machine's IP address which you simply input in the PSP's browser. The webpage instructs you further on how to use it
 
+(Improvements) Better dark/light theme switching
+(Improvements) Updated queue box visuals
 > 1.7 fixes some minor issues with file deletion and better support for macOS. Going forward the app's troubleshooter will show updates from this github file automatically without needing to compile it into the app itself
 
 > 1.7 also attempts to fix ratelimits in ytdlp when attempting to download a lot of media or multiple large playlists
