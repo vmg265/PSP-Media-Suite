@@ -157,7 +157,7 @@ class PSPRequestHandler(BaseHTTPRequestHandler):
                     <head><title>Ready</title></head>
                     <body bgcolor="#121212" text="#ffffff" style="font-family: sans-serif; text-align: center; padding-top: 40px;">
                         <h2 style="color: #22c55e;">Ready!</h2>
-                        <p>Video processing complete.</p>
+                        <p>Video processing complete</p>
                         <p><b>Note:</b> For the PSP to show the video thumbnail, you must download BOTH files below to the VIDEO folder.</p>
                         <br>
                         <a href="/serve_file?id={task_id}" style="color: #ffffff; background-color: #3b82f6; padding: 10px; text-decoration: none; border-radius: 4px;">1. Download Video (.mp4)</a>
