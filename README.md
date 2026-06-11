@@ -8,14 +8,19 @@ Telegram Support Group: https://t.me/psp_mediasuite
 <br>
 <br>
 
-**v1.6 Redesign**
-![psp mp3 video youtube loader ss1-6-1](Screenshot/ss1-6-main.png)
+**PSP-Media Suite v1.7**
+![psp mp3 video youtube loader](Screenshot/Screenshot-1-7-main-homepage-psp-media-suite.png)
 
-v1.6 adds management of already existing music and video files on the PSP
-![psp mp3 video youtube loader ss1-6-2](Screenshot/ss1-6-musics.png)
+v1.7 adds a new wireless webpage download server, you can use PSP browser to download music and videos onto the Memorystick or internal storage (incase of PSPGo) without needing a USB cable!
+![psp mp3 video youtube loader](Screenshot/Screenshot1-7-psp-video-music-mp3-download-directly.png)
 
-v1.6 also adds creating a new , and managing items inside a, playlist on your PSP
-![psp mp3 video youtube loader ss1-6-3](Screenshot/ss1-6-playlistmgmt.png)
+
+1.6 onwards dark mode is available, easily switch between the two with 1.7 onwards
+![psp mp3 video youtube loader](Screenshot/Screenshot-1-7-dark-light-modes-and-info-page.png)
+
+
+v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist on your PSP
+![psp mp3 video youtube loader](Screenshot/Screenshot1-7-psp-playlist-management.png)
 
 **Features**
 1. Add Music, Music Playlists and Videos to the PSP, with thumbnails for music, music playlists and videos.
