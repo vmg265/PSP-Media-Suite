@@ -11,13 +11,19 @@ Telegram Support Group: https://t.me/psp_mediasuite
 **PSP-Media Suite v1.7**
 ![psp mp3 video youtube loader](Screenshot/Screenshot-1-7-main-homepage-psp-media-suite.png)
 
+========================================
+
 v1.7 adds a new wireless webpage download server, you can use PSP browser to download music and videos onto the Memorystick or internal storage (incase of PSPGo) without needing a USB cable!
 ![psp mp3 video youtube loader](Screenshot/Screenshot1-7-psp-video-music-mp3-download-directly.png)
+<p align="left">
+  <img src="Screenshot/ezgif-69db481c146a68a6.gif" width="400" alt="download videos mp3 music on psp directly without pc">
+</p>
 
-
+========================================
 1.6 onwards dark mode is available, easily switch between the two with 1.7 onwards
 ![psp mp3 video youtube loader](Screenshot/Screenshot-1-7-dark-light-modes-and-info-page.png)
 
+========================================
 
 v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist on your PSP
 ![psp mp3 video youtube loader](Screenshot/Screenshot1-7-psp-playlist-management.png)
@@ -34,6 +40,7 @@ v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist
 9. Addded progress log in v1.4 which is now live. v1.4 also brings a slight ui redesign with 2 column view better suited for landscape devices.
 10. v1.5 brings a cleaner ui experience and improvements both functional and aesthetic
 11. v1.6 bring management of playlists, music and video files that are already stored on the psp along with a UI redesign
+12. v1.7 brings web download feature. you can directly download mp3 and videos onto the psp's storage with a local web server running on the psp ms app on your pc
 
 **HOW TO USE?**
 - Open the PSP-MS (exe for windows, app package on Linux)
