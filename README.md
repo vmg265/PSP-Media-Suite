@@ -20,7 +20,7 @@ v1.7 adds a new wireless webpage download server, you can use PSP browser to dow
 </p>
 
 ========================================
-
+1.7 onwards you can forward browser cookies to psp-ms to prevent being ratelimited by ytdlp
 1.6 onwards dark mode is available, easily switch between the two with 1.7 onwards
 ![psp mp3 video youtube loader](Screenshot/Screenshot-1-7-dark-light-modes-and-info-page.png)
 
