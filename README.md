@@ -54,8 +54,12 @@ v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist
 (NOTE)- Use this tool responsibly and do not download media that you dont own a license for.
 
 # VIDEO DEMO (v1.3) ↓
-[![PSP-Media-Suite-Demo](https://img.youtube.com/vi/JdQSQSG4Vfc/maxresdefault.jpg)](https://youtu.be/JdQSQSG4Vfc)
-(video shows v1.3, v1.4 and v1.5 brings new changes which you can learn about in the releases page)
+<p align="left">
+  <a href="https://www.youtube.com/watch?v=JdQSQSG4Vfc" target="_blank">
+    <img src="https://img.youtube.com/vi/JdQSQSG4Vfc/maxresdefault.jpg" alt="Watch the video" width="640" height="360" border="10" />
+  </a>
+</p>
+(video shows v1.3 only, latest v1.4 and above brings new changes which you can learn about in the releases page)
 
 # Build from source Instructions (TBU)-
 **WINDOWS USERS**
