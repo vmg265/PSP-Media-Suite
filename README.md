@@ -86,3 +86,4 @@ v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist
 - Add a search bar in media management
 - Add thumbnails and grid view option in media management
 - More adaptable layout
+- Add thumbnail manual upload for existing library of music and videos
