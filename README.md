@@ -88,3 +88,5 @@ v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist
 - More adaptable layout
 - Add thumbnail manual upload for existing library of music and videos
 - backup music/video library to computer (existing file aware)- useful for multiple PSP management
+- Resize video before upload (setting button in the queue video items
+- photos upload (new tab)
