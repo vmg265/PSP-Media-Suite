@@ -82,6 +82,7 @@ v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist
 - add music playlist capabilities (done in v1.5p)
 - add a manual upload feature to send already downloaded mp3/mp4s (done in 1.5p)
 - add a local view to see what videos and music is already on the storage device (done in 1.6p)
+- 
 - Add a music library backup and restore function, to transfer your library between devices
 - Add a search bar in media management
 - Add thumbnails and grid view option in media management
