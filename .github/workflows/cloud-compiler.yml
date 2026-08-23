@@ -112,10 +112,10 @@ jobs:
           name: PSP-Media-Suite-Linux
           path: PSP-Media-Suite-Linux.zip
 
-  # 4. MAC BUILD 
+  # 4. MAC BUILD
   build-mac:
     needs: lint
-    runs-on: macos-latest
+    runs-on: macos-13  
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
