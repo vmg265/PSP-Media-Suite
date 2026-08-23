@@ -78,15 +78,14 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-tk zip
+          sudo apt-get install -y python3-tk zip wget xz-utils
 
-      - name: Set up FFmpeg
-        uses: FedericoCarboni/setup-ffmpeg@v3
-
-      - name: Copy FFmpeg & FFprobe to Root
+      - name: Download Static FFmpeg & FFprobe
         run: |
-          cp $(which ffmpeg) .
-          cp $(which ffprobe) .
+          wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+          tar -xf ffmpeg-release-amd64-static.tar.xz
+          cp ffmpeg-*-static/ffmpeg .
+          cp ffmpeg-*-static/ffprobe .
           chmod +x ffmpeg ffprobe
 
       - name: Install Python Dependencies
