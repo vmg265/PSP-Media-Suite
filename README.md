@@ -61,20 +61,33 @@ v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist
 </p>
 (video shows v1.3 only, latest v1.4 and above brings new changes which you can learn about in the releases page)
 
-# Build from source Instructions (TBU)-
-**WINDOWS USERS**
-1. Open CMD and download the source- ```git clone https://github.com/vmg265/PSP-Media-Suite.git``` ```cd PSP-Media-Suite```
-2. Download ffmpeg for windows here [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/). Extract the ffmpeg.exe and place it in the root of your project folder (PSP-Media-Suite)
-3. Install dependencies: Ensure Python 3.10+ is installed: ```pip install pyinstaller yt-dlp psutil Pillow requests mutagen```
-4. Compile:``` python -m PyInstaller --onefile --windowed --icon=icon.ico --add-binary "ffmpeg.exe;." --add-data "Icon.png;." --add-data "troubleshooter_box.txt;." --hidden-import PIL._tkinter_finder app.py```
-5. After the compilation is done, the app.exe will be available in dist/ folder
+# Build from source Instructions -
+WINDOWS:
+1. Open CMD and download the source:
+git clone https://github.com/vmg265/PSP-Media-Suite.git
+cd PSP-Media-Suite
+2. Download FFmpeg for Windows here: https://www.gyan.dev/ffmpeg/builds/. Extract both ffmpeg.exe and ffprobe.exe and place them in the root of your project folder (PSP-Media-Suite).
+3. Install dependencies (Ensure Python 3.10+ is installed):
+pip install pyinstaller yt-dlp psutil Pillow requests mutagen
+4. Compile the executable:
+python -m PyInstaller --onefile --windowed --icon=icon.ico --name "PSP-Media-Suite-Win" --add-binary "ffmpeg.exe;." --add-binary "ffprobe.exe;." --add-data "Icon.png;." --hidden-import PIL._tkinter_finder app.py
+5. After the compilation is done, your .exe will be available in the dist/ folder!
 
-**LINUX USERS**
-1. Clone the repo- ```git clone https://github.com/vmg265/PSP-Media-Suite.git``` ```cd PSP-Media-Suite```
-2. ```sudo apt install ffmpeg``` and copy the ffmpeg binary into your project folder (PSP-Media-Suite)
-3. Install dependencies- ```pip3 install pyinstaller yt-dlp psutil Pillow requests mutagen```
-4. Compile the executable- ```python3 -m PyInstaller --onefile --windowed --add-binary "ffmpeg:." --add-data "Icon.png:." --add-data "troubleshooter_box.txt:." --hidden-import PIL._tkinter_finder app.py```
-5. After compilation the app will be available in dist/ folder, to make it availble to your desktop, run- ```cp dist/app .``` ```bash install.sh```
+LINUX:
+1. Clone the repo:
+git clone https://github.com/vmg265/PSP-Media-Suite.git
+cd PSP-Media-Suite
+2. Install FFmpeg and copy both binaries into your project folder:
+sudo apt install ffmpeg
+cp $(which ffmpeg) .
+cp $(which ffprobe) .
+3. Install dependencies:
+pip3 install pyinstaller yt-dlp psutil Pillow requests mutagen
+4. Compile the executable:
+python3 -m PyInstaller --onefile --windowed --name "app" --add-binary "ffmpeg:." --add-binary "ffprobe:." --add-data "Icon.png:." --hidden-import PIL._tkinter_finder app.py
+5. After compilation, the app will be available in the dist/ folder. To make it available to your desktop, run:
+cp dist/app . 
+bash install.sh
 
 
 # To-do
