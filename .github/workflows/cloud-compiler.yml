@@ -78,12 +78,16 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-tk ffmpeg zip
+          sudo apt-get install -y python3-tk zip
+
+      - name: Set up FFmpeg (Static Binaries)
+        uses: FedericoCarboni/setup-ffmpeg@v3
 
       - name: Copy FFmpeg & FFprobe to Root
         run: |
           cp $(which ffmpeg) .
           cp $(which ffprobe) .
+          chmod +x ffmpeg ffprobe
 
       - name: Install Python Dependencies
         run: python -m pip install --upgrade pip pyinstaller yt-dlp psutil Pillow requests mutagen
