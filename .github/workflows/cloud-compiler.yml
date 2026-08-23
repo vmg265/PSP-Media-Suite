@@ -80,7 +80,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3-tk zip
 
-      - name: Set up FFmpeg (Static Binaries)
+      - name: Set up FFmpeg
         uses: FedericoCarboni/setup-ffmpeg@v3
 
       - name: Copy FFmpeg & FFprobe to Root
@@ -112,9 +112,52 @@ jobs:
           name: PSP-Media-Suite-Linux
           path: PSP-Media-Suite-Linux.zip
 
-  # 4. PUBLISH RELEASE
+  # 4. MAC BUILD 
+  build-mac:
+    needs: lint
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up FFmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
+
+      - name: Copy FFmpeg & FFprobe to Root
+        run: |
+          cp $(which ffmpeg) .
+          cp $(which ffprobe) .
+          chmod +x ffmpeg ffprobe
+
+      - name: Install Python Dependencies
+        run: python -m pip install --upgrade pip pyinstaller yt-dlp psutil Pillow requests mutagen
+
+      - name: Compile Mac App
+        run: |
+          pyinstaller --noconsole --onefile --clean --name "PSP-Media-Suite-Mac" --add-binary "ffmpeg:." --add-binary "ffprobe:." --add-data "Icon.png:." --hidden-import PIL._tkinter_finder app.py
+
+      - name: Package Mac ZIP
+        run: |
+          mkdir mac_package
+          cp -r dist/PSP-Media-Suite-Mac.app mac_package/
+          cp Installation_instructions.txt mac_package/ || true
+          cd mac_package
+          zip -r ../PSP-Media-Suite-Mac.zip .
+
+      - name: Upload Mac Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PSP-Media-Suite-Mac
+          path: PSP-Media-Suite-Mac.zip
+
+  # 5. PUBLISH RELEASE
   publish-release:
-    needs: [build-windows, build-linux]
+    needs: [build-windows, build-linux, build-mac]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
@@ -132,6 +175,7 @@ jobs:
           files: |
             artifacts/PSP-Media-Suite-Windows/PSP-Media-Suite-Win.exe
             artifacts/PSP-Media-Suite-Linux/PSP-Media-Suite-Linux.zip
+            artifacts/PSP-Media-Suite-Mac/PSP-Media-Suite-Mac.zip
             Installation_instructions.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
