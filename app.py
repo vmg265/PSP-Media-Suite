@@ -299,7 +299,7 @@ class PSPServerConfig(HTTPServer):
 class PSPMediaSuite:
     def __init__(self, root):
         self.root = root
-        self.root.title("PSP Media Suite v1.7")
+        self.root.title("PSP Media Suite v1.7.1")
         self.root.minsize(1020, 640)
 
         try:
@@ -1114,7 +1114,7 @@ class PSPMediaSuite:
             except: pass
 
         tk.Label(inner, text="PSP Media Suite", font=("Segoe UI", 14, "bold"), fg=TEXT, bg=SURFACE).pack()
-        tk.Label(inner, text="by vmg265  ·  v1.7", font=("Segoe UI", 9), fg=TEXT_DIM, bg=SURFACE).pack(pady=(4, 16))
+        tk.Label(inner, text="by vmg265  ·  v1.7.1", font=("Segoe UI", 9), fg=TEXT_DIM, bg=SURFACE).pack(pady=(4, 16))
 
         for label, url in [("⭐  GitHub", "https://github.com/vmg265/PSP-Media-Suite"),
                             ("☕  Buy me a tea", "https://rzp.io/rzp/pFrhgY8")]:
