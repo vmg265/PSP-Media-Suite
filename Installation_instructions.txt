@@ -1,0 +1,31 @@
+=================================================
+          PSP MEDIA SUITE - INSTALLATION
+=================================================
+
+Thank you for downloading the PSP Media Suite! 
+
+-------------------------------------------------
+[ WINDOWS USERS ]
+-------------------------------------------------
+1. Extract this entire ZIP file to your computer.
+2. Open the "Windows" folder.
+3. Double-click "xxx.exe" to launch the app.
+
+You can right-click the .exe and select "Pin to Taskbar" or "Create Shortcut" to place it on your desktop.
+
+-------------------------------------------------
+[ LINUX & CHROMEOS USERS ]
+-------------------------------------------------
+1. Extract this entire ZIP file to your computer.
+2. Open the "Linux" folder.
+3. Right-click inside the folder and select "Open in Terminal" or cd to the folder
+4. Run the following command in a terminal to install to the desktop launcher:
+
+   bash install.sh
+
+
+* ChromeOS Note: If the icon does not appear immediately, right-click the Terminal app on your shelf, select "Shut down Linux", and reopen it to refresh the cache.
+
+=================================================
+For source code, updates, and bug reports, visit:
+https://github.com/vmg265/PSP-Media-Suite
