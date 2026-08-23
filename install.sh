@@ -10,7 +10,7 @@ rm -f ~/.local/share/icons/psp-media-icon.png
 rm -f ~/.local/bin/vmg-psp-tool
 rm -f ~/.local/bin/psp-media-suite
 
-echo "Installing PSP Media Suite v1.5..."
+echo "Installing PSP Media Suite..."
 
 # Ensure standard Linux directories exist
 mkdir -p ~/.local/bin
