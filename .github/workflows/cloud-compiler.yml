@@ -9,6 +9,7 @@ on:
       - 'v*'
 
 jobs:
+  # 1. LINTING JOB
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -27,8 +28,9 @@ jobs:
       - name: Check for Fatal Syntax Errors
         run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
+  # 2. WINDOWS BUILD
   build-windows:
-    needs: lint 
+    needs: lint
     runs-on: windows-latest
     steps:
       - name: Checkout Code
@@ -62,8 +64,9 @@ jobs:
           name: PSP-Media-Suite-Windows
           path: dist/PSP-Media-Suite-Win.exe
 
+  # 3. LINUX BUILD
   build-linux:
-    needs: lint 
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -96,6 +99,7 @@ jobs:
           cp dist/app linux_package/
           cp Icon.png linux_package/
           cp install.sh linux_package/ || true
+          cp Installation_instructions.txt linux_package/ || true
           cd linux_package
           zip -r ../PSP-Media-Suite-Linux.zip .
 
@@ -105,11 +109,15 @@ jobs:
           name: PSP-Media-Suite-Linux
           path: PSP-Media-Suite-Linux.zip
 
+  # 4. PUBLISH RELEASE
   publish-release:
-    needs: [build-windows, build-linux] 
+    needs: [build-windows, build-linux]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Download Compiled Artifacts
         uses: actions/download-artifact@v4
         with:
@@ -121,5 +129,6 @@ jobs:
           files: |
             artifacts/PSP-Media-Suite-Windows/PSP-Media-Suite-Win.exe
             artifacts/PSP-Media-Suite-Linux/PSP-Media-Suite-Linux.zip
+            Installation_instructions.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
