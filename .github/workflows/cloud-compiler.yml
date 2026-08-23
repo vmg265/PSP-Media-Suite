@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          # cache: 'pip' removed here
 
       - name: Install Linter
         run: python -m pip install flake8
@@ -40,12 +39,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          # cache: 'pip' removed here
 
       - name: Set up FFmpeg
         uses: FedericoCarboni/setup-ffmpeg@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        # Removed the deprecated token argument!
 
       - name: Copy FFmpeg to Root
         shell: bash
@@ -76,7 +73,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          # cache: 'pip' removed here
 
       - name: Install System Dependencies
         run: |
