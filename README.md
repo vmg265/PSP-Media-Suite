@@ -8,7 +8,11 @@ Telegram Support Group: https://t.me/psp_mediasuite
 <br>
 <br>
 
-**PSP-Media Suite v1.7**
+**PSP Media Suite 1.8**
+<img width="1920" height="1080" alt="Screenshot 2026-10-17 12 44 02 PM" src="https://github.com/user-attachments/assets/1da776a8-8b67-4b6f-b8a3-83a81431f257" />
+
+
+PSP-Media Suite v1.7
 ![psp mp3 video youtube loader](Screenshot/Screenshot-1-7-main-homepage-psp-media-suite.png)
 
 ========================================
