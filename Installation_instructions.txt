@@ -8,21 +8,31 @@ Thank you for downloading the PSP Media Suite!
 [ WINDOWS USERS ]
 -------------------------------------------------
 1. Extract this entire ZIP file to your computer.
-2. Open the "Windows" folder.
-3. Double-click "xxx.exe" to launch the app.
+2. Double-click "PSP-Media-Suite-Win.exe" to launch the app.
 
 You can right-click the .exe and select "Pin to Taskbar" or "Create Shortcut" to place it on your desktop.
+
+-------------------------------------------------
+[ MACOS USERS ]
+-------------------------------------------------
+1. Double-click "PSP-Media-Suite-Mac.zip" to extract it.
+2. Drag "PSP-Media-Suite-Mac.app" to your Applications folder.
+3. First-time launch (bypassing macOS Gatekeeper):
+   - Right-click (or Control-click) "PSP-Media-Suite-Mac.app" and select "Open".
+   - Click "Open" in the security prompt.
+   (Alternatively: Go to System Settings → Privacy & Security and click "Open Anyway").
+
+* Note: If macOS says the app is "damaged" due to quarantine, open Terminal and run:
+   xattr -cr /Applications/PSP-Media-Suite-Mac.app
 
 -------------------------------------------------
 [ LINUX & CHROMEOS USERS ]
 -------------------------------------------------
 1. Extract this entire ZIP file to your computer.
-2. Open the "Linux" folder.
-3. Right-click inside the folder and select "Open in Terminal" or cd to the folder
-4. Run the following command in a terminal to install to the desktop launcher:
+2. Right-click inside the extracted folder and select "Open in Terminal" (or cd to the folder).
+3. Run the following command in a terminal to install to the desktop launcher:
 
    bash install.sh
-
 
 * ChromeOS Note: If the icon does not appear immediately, right-click the Terminal app on your shelf, select "Shut down Linux", and reopen it to refresh the cache.
 
