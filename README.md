@@ -104,3 +104,4 @@ bash install.sh
 - backup music/video library to computer (existing file aware)- useful for multiple PSP management
 - Resize video before upload (setting button in the queue video items
 - photos upload (new tab)
+- Video Playlists implementation (done)

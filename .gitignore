@@ -1,0 +1,38 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller / Build outputs
+build/
+dist/
+*.spec
+linux_package/
+mac_package/
+artifacts/
+*.zip
+app
+app.exe
+
+# Binaries
+ffmpeg
+ffprobe
+ffmpeg.exe
+ffprobe.exe
+
+# Temporary conversion artifacts
+temp.*
+temp_raw*
+cover*
+*.thm_temp
+web_out/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# IDE & Workspaces
+.vscode/
+.idea/
+*.code-workspace
