@@ -201,26 +201,36 @@ class AccentButton(tk.Canvas):
             fill = Theme.ACCENT
             txt_color = "#ffffff"
 
-        draw_rounded_rect(self, 0, 0, w, h, 8, fill)
+        # Zero corner radius: sharp flat rectangle matching all other buttons
+        self.create_rectangle(0, 0, w, h, fill=fill, outline="")
 
         cx = w // 2
         cy = h // 2
         if self._icon_name:
-            photo = get_icon_photo(self._icon_name, size=18, color=txt_color)
+            icon_sz = 18
+            photo = get_icon_photo(self._icon_name, size=icon_sz, color=txt_color)
             self._icon_ref = photo
-            self.create_image(cx - 75, cy, image=photo, anchor="center")
-            self.create_text(cx + 8, cy, text=self._text, font=("Segoe UI", 10, "bold"), fill=txt_color, anchor="center")
+            f = tkfont.Font(family="Segoe UI", size=10, weight="bold")
+            text_w = f.measure(self._text)
+            gap = 8
+            total_w = icon_sz + gap + text_w
+            start_x = max(4, (w - total_w) // 2)
+            icon_x = start_x + (icon_sz // 2)
+            text_x = start_x + icon_sz + gap + (text_w // 2)
+            self.create_image(icon_x, cy, image=photo, anchor="center")
+            self.create_text(text_x, cy, text=self._text, font=f, fill=txt_color, anchor="center")
         else:
             self.create_text(cx, cy, text=self._text, font=("Segoe UI", 10, "bold"), fill=txt_color, anchor="center")
 
 class AnimatedBanner(tk.Canvas):
     """
     Iconic PSP & PS3 XMB fluid sine-wave ribbon animation with floating stardust particles.
-    Authentically replicates the classic PlayStation 3 and PlayStation Portable XMB wave.
+    Authentically replicates the classic PlayStation 3 and PlayStation Portable XMB wave
+    with frosted glass aesthetics and ultra-smooth wave sampling.
     """
 
     def __init__(self, parent, height=66):
-        super().__init__(parent, bg="#040914", highlightthickness=0, height=height)
+        super().__init__(parent, bg="#0b1120", highlightthickness=0, height=height)
         self.t = 0.0
         self._banner_icon = None
 
@@ -262,60 +272,66 @@ class AnimatedBanner(tk.Canvas):
         h = max(self.winfo_height(), 66)
         mid_y = h * 0.52
 
-        # ── 1. Deep Atmospheric Background Wave Ribbon ──
-        steps = 32
+        # ── 1. Deep Atmospheric Frosted Background Wave Ribbon (high resolution: 140 steps) ──
+        steps = 140
         pts_back = []
         for i in range(steps + 1):
             x = (i / steps) * w
-            y = mid_y + 15 * math.sin(x * 0.0048 + self.t * 0.72) + 7 * math.cos(x * 0.011 - self.t * 0.45)
+            y = mid_y + 14 * math.sin(x * 0.0048 + self.t * 0.72) + 6 * math.cos(x * 0.011 - self.t * 0.45)
             pts_back.extend([x, y - 18])
         for i in range(steps, -1, -1):
             x = (i / steps) * w
-            y = mid_y + 15 * math.sin(x * 0.0048 + self.t * 0.72) + 7 * math.cos(x * 0.011 - self.t * 0.45)
+            y = mid_y + 14 * math.sin(x * 0.0048 + self.t * 0.72) + 6 * math.cos(x * 0.011 - self.t * 0.45)
             pts_back.extend([x, y + 20])
-        self.create_polygon(pts_back, fill="#071b36", smooth=True, outline="", tags="wave")
+        self.create_polygon(pts_back, fill="#0e233d", smooth=True, outline="", tags="wave")
 
-        # ── 2. Mid PlayStation Signature Blue Ribbon ──
+        # ── 2. Mid Frosted Sapphire Ribbon ──
         pts_mid = []
         crest_mid = []
         for i in range(steps + 1):
             x = (i / steps) * w
-            y = mid_y + 13 * math.sin(x * 0.0068 + self.t) + 8 * math.cos(x * 0.0135 - self.t * 0.8)
-            thick = 12 + 7 * math.sin(x * 0.0055 + self.t * 0.55)
+            y = mid_y + 12 * math.sin(x * 0.0068 + self.t) + 7 * math.cos(x * 0.0135 - self.t * 0.8)
+            thick = 11 + 6 * math.sin(x * 0.0055 + self.t * 0.55)
             pts_mid.extend([x, y - thick])
             crest_mid.extend([x, y - thick])
         for i in range(steps, -1, -1):
             x = (i / steps) * w
-            y = mid_y + 13 * math.sin(x * 0.0068 + self.t) + 8 * math.cos(x * 0.0135 - self.t * 0.8)
-            thick = 12 + 7 * math.sin(x * 0.0055 + self.t * 0.55)
+            y = mid_y + 12 * math.sin(x * 0.0068 + self.t) + 7 * math.cos(x * 0.0135 - self.t * 0.8)
+            thick = 11 + 6 * math.sin(x * 0.0055 + self.t * 0.55)
             pts_mid.extend([x, y + thick])
-        self.create_polygon(pts_mid, fill="#0a3d78", smooth=True, outline="", tags="wave")
-        self.create_line(crest_mid, fill="#1d8cf8", width=1.5, smooth=True, tags="wave")
+        self.create_polygon(pts_mid, fill="#12365c", smooth=True, outline="", tags="wave")
+        self.create_line(crest_mid, fill="#1e60a5", width=1.5, smooth=True, tags="wave")
 
-        # ── 3. Foreground Luminous Electric Cyan Ribbon ──
+        # ── 3. Foreground Luminous Frosted Cyan Ribbon ──
         pts_fore = []
         crest_fore = []
+        crest_light = []
         for i in range(steps + 1):
             x = (i / steps) * w
-            y = mid_y + 10 * math.sin(x * 0.0085 - self.t * 1.25) + 6 * math.sin(x * 0.016 + self.t * 0.95)
-            thick = 7 + 5 * math.cos(x * 0.0078 + self.t * 0.65)
+            y = mid_y + 9 * math.sin(x * 0.0085 - self.t * 1.25) + 5 * math.sin(x * 0.016 + self.t * 0.95)
+            thick = 7 + 4 * math.cos(x * 0.0078 + self.t * 0.65)
             pts_fore.extend([x, y - thick])
             crest_fore.extend([x, y - thick])
+            crest_light.extend([x, y - thick * 0.4])
         for i in range(steps, -1, -1):
             x = (i / steps) * w
-            y = mid_y + 10 * math.sin(x * 0.0085 - self.t * 1.25) + 6 * math.sin(x * 0.016 + self.t * 0.95)
-            thick = 7 + 5 * math.cos(x * 0.0078 + self.t * 0.65)
+            y = mid_y + 9 * math.sin(x * 0.0085 - self.t * 1.25) + 5 * math.sin(x * 0.016 + self.t * 0.95)
+            thick = 7 + 4 * math.cos(x * 0.0078 + self.t * 0.65)
             pts_fore.extend([x, y + thick])
-        self.create_polygon(pts_fore, fill="#0077b6", smooth=True, outline="", tags="wave")
-        self.create_line(crest_fore, fill="#64d2ff", width=2, smooth=True, tags="wave")
+        self.create_polygon(pts_fore, fill="#17497a", smooth=True, outline="", tags="wave")
+        self.create_line(crest_fore, fill="#38bdf8", width=1.5, smooth=True, tags="wave")
+        self.create_line(crest_light, fill="#7dd3fc", width=0.8, smooth=True, tags="wave")
 
-        # ── 4. Floating XMB Stardust Particles ──
+        # ── 4. Subtle Frosted Glass Divider & Specular Rim ──
+        self.create_line(0, h - 1, w, h - 1, fill="#1e293b", tags="wave")
+
+        # ── 5. Floating XMB Stardust Particles ──
         for p in self.particles:
             py = (p['y'] + 6 * math.sin(self.t + p['phase'])) % h
             sz = p['size']
             self.create_oval(p['x'], py, p['x'] + sz, py + sz, fill=p['alpha_color'], outline="", tags="particle")
 
-        # ── 5. Left Branding ──
+        # ── 6. Left Branding ──
         tx = 20
         if self._banner_icon:
             self.create_image(22, h // 2, anchor="w", image=self._banner_icon, tags="banner_content")

@@ -131,27 +131,27 @@ class PSPMediaSuite:
         self.banner = AnimatedBanner(self.root, height=66)
         self.banner.pack(fill="x")
 
-        right_bar = tk.Frame(self.banner, bg="#081426", highlightbackground="#1e293b", highlightthickness=1)
+        right_bar = tk.Frame(self.banner, bg="#0f172a", highlightbackground="#334155", highlightthickness=1)
         right_bar.place(relx=1.0, rely=0.5, anchor="e", x=-16)
 
         # 1. Hamburger Menu Button (Google Material 'menu' icon)
         self.menu_btn = create_flat_btn(
-            right_bar, icon_name="menu", bg="#111c30", fg="#ffffff", hover_bg="#1e293b",
+            right_bar, icon_name="menu", bg="#1e293b", fg="#ffffff", hover_bg="#334155",
             command=self.show_about, padx=10, pady=6
         )
         self.menu_btn.pack(side="right", padx=(8, 4))
 
         # 2. Server Button (Google Material 'public' icon)
         self.server_btn = create_flat_btn(
-            right_bar, text="Server", icon_name="public", bg="#111c30", fg="#ffffff",
-            hover_bg="#1e293b", command=self.toggle_server, padx=10, pady=6
+            right_bar, text="Server", icon_name="public", bg="#1e293b", fg="#ffffff",
+            hover_bg="#334155", command=self.toggle_server, padx=10, pady=6
         )
         self.server_btn.pack(side="right", padx=(6, 0))
 
         # 3. Refresh USB Button (Google Material 'sync' icon)
         refresh_btn = create_flat_btn(
-            right_bar, text="Refresh", icon_name="sync", bg="#111c30", fg="#ffffff",
-            hover_bg="#1e293b", command=self.scan_usb, padx=10, pady=6
+            right_bar, text="Refresh", icon_name="sync", bg="#1e293b", fg="#ffffff",
+            hover_bg="#334155", command=self.scan_usb, padx=10, pady=6
         )
         refresh_btn.pack(side="right", padx=(6, 0))
 
@@ -160,7 +160,7 @@ class PSPMediaSuite:
         self.drive_combo.pack(side="right", padx=(4, 0))
         self.drive_combo.bind("<<ComboboxSelected>>", lambda e: self._on_drive_changed())
 
-        drive_lbl = tk.Label(right_bar, text="Drive:", font=FONT_SMALL, fg="#94a3b8", bg="#081426")
+        drive_lbl = tk.Label(right_bar, text="Drive:", font=FONT_SMALL, fg="#94a3b8", bg="#0f172a")
         drive_lbl.pack(side="right", padx=(8, 4))
 
         self.accent_line = tk.Frame(self.root, bg=Theme.ACCENT, height=2)
