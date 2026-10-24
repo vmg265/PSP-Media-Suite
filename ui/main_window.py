@@ -217,7 +217,7 @@ class PSPMediaSuite:
 
         # Left: Main Status Label
         self._prog_label = tk.Label(
-            top_info_row, text="System Ready", font=("Segoe UI", 9, "bold"),
+            top_info_row, text="", font=("Segoe UI", 9, "bold"),
             fg=Theme.TEXT_DIM, bg=Theme.SURFACE, anchor="w"
         )
         self._prog_label.pack(side="left")
@@ -682,7 +682,7 @@ class PSPMediaSuite:
                 self._prog_label.config(text="Transfer Complete", fg=Theme.SUCCESS)
                 self.root.after(2000, lambda: self.update_progress(0))
             elif val == 0:
-                self._prog_label.config(text="System Ready", fg=Theme.TEXT_DIM)
+                self._prog_label.config(text="", fg=Theme.TEXT_DIM)
             else:
                 self._prog_label.config(text=f"Processing… {int(val)}%", fg=Theme.ACCENT)
             self.progress_bar.update_progress(val)

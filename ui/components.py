@@ -17,8 +17,59 @@ def draw_rounded_rect(canvas, x0, y0, x1, y1, r, color, outline=""):
     canvas.create_rectangle(x0 + r, y0, x1 - r, y1, fill=color, outline=outline)
     canvas.create_rectangle(x0, y0 + r, x1, y1 - r, fill=color, outline=outline)
 
+class SimpleTooltip:
+    """Lightweight tooltip that appears when hovering over a widget."""
+    def __init__(self, widget, text):
+        self.widget = widget
+        self.text = text
+        self.tip_window = None
+        self._after_id = None
+        self.widget.bind("<Enter>", self._on_enter, add="+")
+        self.widget.bind("<Leave>", self._on_leave, add="+")
+        self.widget.bind("<ButtonPress>", self._on_leave, add="+")
+
+    def _on_enter(self, event=None):
+        self._cancel()
+        self._after_id = self.widget.after(300, self.show_tip)
+
+    def _on_leave(self, event=None):
+        self._cancel()
+        if self.tip_window:
+            try:
+                self.tip_window.destroy()
+            except Exception:
+                pass
+            self.tip_window = None
+
+    def _cancel(self):
+        if self._after_id:
+            try:
+                self.widget.after_cancel(self._after_id)
+            except Exception:
+                pass
+            self._after_id = None
+
+    def show_tip(self):
+        if not self.widget.winfo_exists():
+            return
+        x = self.widget.winfo_rootx() + (self.widget.winfo_width() // 2)
+        y = self.widget.winfo_rooty() + self.widget.winfo_height() + 4
+        self.tip_window = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(True)
+        try:
+            tw.attributes("-topmost", True)
+        except Exception:
+            pass
+        lbl = tk.Label(tw, text=self.text, font=("Segoe UI", 8), bg="#18181b", fg="#ffffff",
+                       highlightbackground=Theme.BORDER, highlightthickness=1, padx=6, pady=3)
+        lbl.pack()
+        tw.update_idletasks()
+        req_w = lbl.winfo_reqwidth()
+        tw.wm_geometry(f"+{max(0, x - (req_w // 2))}+{y}")
+
 def create_flat_btn(parent, text="", icon_name=None, width=None, height=32, bg=None, fg=None,
-                    hover_bg=None, command=None, font=None, icon_size=16, padx=12, pady=5):
+                    hover_bg=None, command=None, font=None, icon_size=16, padx=12, pady=5,
+                    tooltip=None):
     """Creates a modern flat button with optional Google Material Icon and hover effect."""
     bg = bg or Theme.SURFACE2
     fg = fg or Theme.TEXT
@@ -42,6 +93,8 @@ def create_flat_btn(parent, text="", icon_name=None, width=None, height=32, bg=N
     btn.bind("<Leave>", lambda e: btn.config(bg=btn._bg))
     if command:
         btn.bind("<Button-1>", lambda e: command())
+    if tooltip:
+        SimpleTooltip(btn, tooltip)
     return btn
 
 def create_tab_btn(parent, text, tab_id, on_click, icon_name=None):

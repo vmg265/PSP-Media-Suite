@@ -228,22 +228,14 @@ class LocalMediaManagerPanel(tk.Frame):
         ctrl_bar = tk.Frame(parent, bg=Theme.BG)
         ctrl_bar.pack(fill="x", pady=(0, 6))
 
-        # Search / Filter
-        search_f = tk.Frame(ctrl_bar, bg=Theme.SURFACE2, highlightbackground=Theme.BORDER, highlightthickness=1)
-        search_f.pack(side="left", fill="x", expand=True, padx=(0, 6))
+        # Grid / List View Toggle (icon-only with Google Material vector icons)
+        self.view_list_btn = create_flat_btn(ctrl_bar, "", icon_name="view_list", bg=Theme.SURFACE2, fg=Theme.TEXT_DIM,
+                                             command=lambda: self.set_view_mode("list"), padx=8, pady=5, tooltip="List View")
+        self.view_list_btn.pack(side="right")
 
-        s_icon = get_icon_photo("search", size=14, color=Theme.TEXT_DIM)
-        s_lbl = tk.Label(search_f, image=s_icon, bg=Theme.SURFACE2, padx=6)
-        s_lbl.image = s_icon
-        s_lbl.pack(side="left")
-
-        self.filter_var = tk.StringVar()
-        self.filter_entry = tk.Entry(
-            search_f, textvariable=self.filter_var, fg=Theme.TEXT, font=FONT_BODY,
-            borderwidth=0, relief="flat", bg=Theme.SURFACE2, insertbackground=Theme.TEXT
-        )
-        self.filter_entry.pack(side="left", fill="both", expand=True, ipady=4)
-        self.filter_entry.bind("<KeyRelease>", lambda e: self._on_filter_changed())
+        self.view_grid_btn = create_flat_btn(ctrl_bar, "", icon_name="grid_view", bg=Theme.ACCENT, fg="#ffffff",
+                                             command=lambda: self.set_view_mode("grid"), padx=8, pady=5, tooltip="Grid View")
+        self.view_grid_btn.pack(side="right", padx=(0, 4))
 
         # Sort Dropdown
         sort_opts = [
@@ -260,17 +252,25 @@ class LocalMediaManagerPanel(tk.Frame):
         self.sort_combo = ttk.Combobox(ctrl_bar, state="readonly", style="App.TCombobox", width=14, font=FONT_SMALL)
         self.sort_combo['values'] = [k for k, _ in sort_opts]
         self.sort_combo.current(0)
-        self.sort_combo.pack(side="left", padx=(0, 6))
+        self.sort_combo.pack(side="right", padx=(0, 6))
         self.sort_combo.bind("<<ComboboxSelected>>", self._on_sort_changed)
 
-        # Grid / List View Toggle (with Google Material vector icons)
-        self.view_grid_btn = create_flat_btn(ctrl_bar, "Grid", icon_name="grid_view", bg=Theme.ACCENT, fg="#ffffff",
-                                             command=lambda: self.set_view_mode("grid"), font=("Segoe UI", 8, "bold"))
-        self.view_grid_btn.pack(side="left", padx=(0, 2))
+        # Search / Filter
+        search_f = tk.Frame(ctrl_bar, bg=Theme.SURFACE2, highlightbackground=Theme.BORDER, highlightthickness=1)
+        search_f.pack(side="left", fill="x", expand=True, padx=(0, 6))
 
-        self.view_list_btn = create_flat_btn(ctrl_bar, "List", icon_name="view_list", bg=Theme.SURFACE2, fg=Theme.TEXT_DIM,
-                                             command=lambda: self.set_view_mode("list"), font=("Segoe UI", 8, "bold"))
-        self.view_list_btn.pack(side="left")
+        s_icon = get_icon_photo("search", size=14, color=Theme.TEXT_DIM)
+        s_lbl = tk.Label(search_f, image=s_icon, bg=Theme.SURFACE2, padx=6)
+        s_lbl.image = s_icon
+        s_lbl.pack(side="left")
+
+        self.filter_var = tk.StringVar()
+        self.filter_entry = tk.Entry(
+            search_f, textvariable=self.filter_var, fg=Theme.TEXT, font=FONT_BODY,
+            borderwidth=0, relief="flat", bg=Theme.SURFACE2, insertbackground=Theme.TEXT
+        )
+        self.filter_entry.pack(side="left", fill="both", expand=True, ipady=4)
+        self.filter_entry.bind("<KeyRelease>", lambda e: self._on_filter_changed())
 
         # View Area (Container for Grid / List)
         self.view_container = tk.Frame(parent, bg=Theme.BORDER, padx=1, pady=1)
@@ -309,27 +309,20 @@ class LocalMediaManagerPanel(tk.Frame):
         self.tree.bind("<Double-Button-1>", lambda e: self.edit_thumbnail())
         self.tree.bind("<Button-3>", self._show_tree_context_menu)
 
-        # Bottom Action Bar with Google Material Icons
+        # Bottom Action Bar with Google Material Icons (icon-only)
         action_bar = tk.Frame(parent, bg=Theme.BG)
         action_bar.pack(fill="x")
 
-        create_flat_btn(action_bar, "Thumbnail", icon_name="image", bg=Theme.SURFACE2, fg=Theme.ACCENT, hover_bg=Theme.BORDER,
-                        command=self.edit_thumbnail, font=("Segoe UI", 9, "bold")).pack(side="left", padx=(0, 6))
-        create_flat_btn(action_bar, "Rename", icon_name="edit", bg=Theme.ACCENT, fg="#ffffff", hover_bg=Theme.ACCENT2,
-                        command=self.rename_selected, font=("Segoe UI", 9, "bold")).pack(side="left", padx=(0, 6))
-        create_flat_btn(action_bar, "Delete", icon_name="delete", bg=Theme.ERROR, fg="#ffffff", hover_bg=Theme.BORDER,
-                        command=self.delete_selected, font=("Segoe UI", 9, "bold")).pack(side="left", padx=(0, 6))
-        create_flat_btn(action_bar, "Open Folder", icon_name="folder", bg=Theme.SURFACE2, fg=Theme.TEXT, hover_bg=Theme.BORDER,
-                        command=self.open_folder, font=("Segoe UI", 9)).pack(side="left", padx=(0, 6))
-        create_flat_btn(action_bar, "Refresh", icon_name="sync", bg=Theme.SURFACE2, fg=Theme.TEXT, hover_bg=Theme.BORDER,
-                        command=self.refresh, font=("Segoe UI", 9)).pack(side="left")
-
-        # Hover info status strip
-        self.hover_info_lbl = tk.Label(
-            parent, text="Hover over a file to see its full name · Double-click to edit thumbnail",
-            font=("Segoe UI", 8), fg=Theme.TEXT_DIM, bg=Theme.BG, anchor="w"
-        )
-        self.hover_info_lbl.pack(fill="x", pady=(4, 0))
+        create_flat_btn(action_bar, "", icon_name="image", bg=Theme.SURFACE2, fg=Theme.ACCENT, hover_bg=Theme.BORDER,
+                        command=self.edit_thumbnail, padx=9, pady=5, tooltip="Edit Thumbnail").pack(side="left", padx=(0, 6))
+        create_flat_btn(action_bar, "", icon_name="edit", bg=Theme.ACCENT, fg="#ffffff", hover_bg=Theme.ACCENT2,
+                        command=self.rename_selected, padx=9, pady=5, tooltip="Rename File").pack(side="left", padx=(0, 6))
+        create_flat_btn(action_bar, "", icon_name="delete", bg=Theme.ERROR, fg="#ffffff", hover_bg=Theme.BORDER,
+                        command=self.delete_selected, padx=9, pady=5, tooltip="Delete File").pack(side="left", padx=(0, 6))
+        create_flat_btn(action_bar, "", icon_name="folder", bg=Theme.SURFACE2, fg=Theme.TEXT, hover_bg=Theme.BORDER,
+                        command=self.open_folder, padx=9, pady=5, tooltip="Open Folder").pack(side="left", padx=(0, 6))
+        create_flat_btn(action_bar, "", icon_name="sync", bg=Theme.SURFACE2, fg=Theme.TEXT, hover_bg=Theme.BORDER,
+                        command=self.refresh, padx=9, pady=5, tooltip="Refresh List").pack(side="left")
 
         # Two-finger and mousewheel scrolling on list view tree
         def _scroll_tree(event):
@@ -378,16 +371,28 @@ class LocalMediaManagerPanel(tk.Frame):
     def set_view_mode(self, mode):
         self.view_mode = mode
         if mode == "grid":
-            self.view_grid_btn.config(bg=Theme.ACCENT, fg="#ffffff")
-            self.view_list_btn.config(bg=Theme.SURFACE2, fg=Theme.TEXT_DIM)
+            grid_img = get_icon_photo("grid_view", size=16, color="#ffffff")
+            list_img = get_icon_photo("view_list", size=16, color=Theme.TEXT_DIM)
+            self.view_grid_btn.image = grid_img
+            self.view_grid_btn.config(image=grid_img, bg=Theme.ACCENT)
+            self.view_grid_btn._bg = Theme.ACCENT
+            self.view_list_btn.image = list_img
+            self.view_list_btn.config(image=list_img, bg=Theme.SURFACE2)
+            self.view_list_btn._bg = Theme.SURFACE2
             self.tree.pack_forget()
             self.list_scrollbar.pack_forget()
             self.grid_canvas.pack(side="left", fill="both", expand=True)
             self.grid_scrollbar.pack(side="right", fill="y")
             self._render_grid_view()
         else:
-            self.view_grid_btn.config(bg=Theme.SURFACE2, fg=Theme.TEXT_DIM)
-            self.view_list_btn.config(bg=Theme.ACCENT, fg="#ffffff")
+            grid_img = get_icon_photo("grid_view", size=16, color=Theme.TEXT_DIM)
+            list_img = get_icon_photo("view_list", size=16, color="#ffffff")
+            self.view_grid_btn.image = grid_img
+            self.view_grid_btn.config(image=grid_img, bg=Theme.SURFACE2)
+            self.view_grid_btn._bg = Theme.SURFACE2
+            self.view_list_btn.image = list_img
+            self.view_list_btn.config(image=list_img, bg=Theme.ACCENT)
+            self.view_list_btn._bg = Theme.ACCENT
             self.grid_canvas.pack_forget()
             self.grid_scrollbar.pack_forget()
             self.tree.pack(side="left", fill="both", expand=True)
@@ -434,13 +439,9 @@ class LocalMediaManagerPanel(tk.Frame):
         sel = self.tree.selection()
         if sel:
             self.selected_file = sel[0]
-            if hasattr(self, 'hover_info_lbl'):
-                self.hover_info_lbl.config(text=sel[0], fg=Theme.TEXT)
 
     def _on_tree_motion(self, event):
-        iid = self.tree.identify_row(event.y)
-        if iid and hasattr(self, 'hover_info_lbl'):
-            self.hover_info_lbl.config(text=iid, fg=Theme.TEXT)
+        pass
 
     def _render_grid_view(self):
         HoverTooltip.close_active()
@@ -521,19 +522,9 @@ class LocalMediaManagerPanel(tk.Frame):
 
     def _on_card_enter(self, card, info):
         card.config(bg=Theme.BORDER)
-        if hasattr(self, 'hover_info_lbl'):
-            self.hover_info_lbl.config(
-                text=f"{info['name']}   ({info['size_str']} · {info['date_str'][:10]})",
-                fg=Theme.TEXT
-            )
 
     def _on_card_leave(self, card):
         card.config(bg=Theme.SURFACE2)
-        if hasattr(self, 'hover_info_lbl'):
-            self.hover_info_lbl.config(
-                text="Hover over a file to see its full name · Double-click to edit thumbnail",
-                fg=Theme.TEXT_DIM
-            )
 
     def _select_card(self, fname):
         self.selected_file = fname
