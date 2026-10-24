@@ -36,7 +36,7 @@ from core.config import (
     format_time,
     get_local_ip
 )
-from core.device import scan_psp_drives
+from core.device import scan_psp_drives, ensure_psp_dirs
 from core.downloader import (
     search_youtube,
     get_best_thumbnail,
@@ -94,6 +94,10 @@ class PSPMediaSuite:
             log_callback=self.write_log,
             browser_provider=lambda: self.selected_browser
         )
+
+        self.drives = {}
+        self._custom_drives = {}
+        self._last_drives_unique = []
 
         self._build_ui()
         self.scan_usb()
@@ -155,8 +159,16 @@ class PSPMediaSuite:
         )
         refresh_btn.pack(side="right", padx=(6, 0))
 
-        # 4. PSP Drive Selector
-        self.drive_combo = ttk.Combobox(right_bar, state="readonly", style="App.TCombobox", width=26, font=FONT_BODY)
+        # 4. Browse Folder Button (Google Material 'folder' icon)
+        browse_btn = create_flat_btn(
+            right_bar, text="", icon_name="folder", bg="#1e293b", fg="#ffffff",
+            hover_bg="#334155", command=self.browse_custom_drive, padx=8, pady=6,
+            tooltip="Browse / Select custom drive or storage folder"
+        )
+        browse_btn.pack(side="right", padx=(4, 0))
+
+        # 5. PSP Drive Selector
+        self.drive_combo = ttk.Combobox(right_bar, state="readonly", style="App.TCombobox", width=34, font=FONT_BODY)
         self.drive_combo.pack(side="right", padx=(4, 0))
         self.drive_combo.bind("<<ComboboxSelected>>", lambda e: self._on_drive_changed())
 
@@ -676,30 +688,94 @@ class PSPMediaSuite:
 
     # ── Drive & Tab Management ──
 
-    def scan_usb(self):
-        self.drives, unique = scan_psp_drives()
-        self._last_drives_unique = unique
+    def browse_custom_drive(self):
+        initial = "/mnt/chromeos/removable" if os.path.exists("/mnt/chromeos/removable") else None
+        path = filedialog.askdirectory(title="Select PSP Drive / Storage Folder", initialdir=initial)
+        if path:
+            ensure_psp_dirs(path)
+            total_gb = 0.0
+            free_gb = 0.0
+            try:
+                total, used, free = shutil.disk_usage(path)
+                total_gb = total / (1024 ** 3)
+                free_gb = free / (1024 ** 3)
+                label = f"Custom: {os.path.basename(path) or path} ({total_gb:.1f} GB, {free_gb:.1f} GB free)"
+            except Exception:
+                label = f"Custom: {os.path.basename(path) or path}"
+
+            if not hasattr(self, '_custom_drives'):
+                self._custom_drives = {}
+            self._custom_drives[label] = path
+            self.scan_usb(select_label=label)
+
+    def scan_usb(self, select_label=None):
+        scanned_drives, unique = scan_psp_drives()
+        self.drives = dict(scanned_drives)
+
+        # Merge any custom browsed paths
+        if hasattr(self, '_custom_drives'):
+            for c_lbl, c_path in self._custom_drives.items():
+                if os.path.exists(c_path):
+                    self.drives[c_lbl] = c_path
+                    if c_lbl not in unique:
+                        unique.append(c_lbl)
+
+        self._last_drives_unique = list(unique)
         self.drive_combo['values'] = unique
+
         if unique:
-            self.drive_combo.current(0)
-            self.write_log(f"Found PSP drive: {unique[0]}")
+            if select_label and select_label in unique:
+                self.drive_combo.set(select_label)
+            else:
+                current = self.drive_combo.get()
+                if current in unique:
+                    self.drive_combo.set(current)
+                else:
+                    self.drive_combo.current(0)
+
+            active_path = self._get_drive_path()
+            if active_path:
+                ensure_psp_dirs(active_path)
+
+            self.write_log(f"Active drive: {self.drive_combo.get()}")
+
+            # Helpful ChromeOS notification if running on Chromebook and multiple storages exist
+            if os.path.exists("/mnt/chromeos"):
+                rem_dir = "/mnt/chromeos/removable"
+                if os.path.exists(rem_dir):
+                    rem_count = len([x for x in os.listdir(rem_dir) if os.path.isdir(os.path.join(rem_dir, x))])
+                    if rem_count == 1:
+                        self.write_log("Tip (PSP Go / Dual Storage): Right-click both 'USB Drive' & 'USB Drive 1' in ChromeOS Files app -> 'Share with Linux'.")
+                    elif rem_count > 1:
+                        self.write_log(f"Detected {rem_count} storage devices! Switch between Internal & M2 via the Drive selector.")
         else:
             self.drive_combo.set("No PSP Drive Found")
             self.write_log("No PSP drive detected. Connect your PSP in USB mode.")
+            if os.path.exists("/mnt/chromeos"):
+                self.write_log("ChromeOS: In Files app, right-click your drive under 'Removable' -> 'Share with Linux'.")
+
         self._on_drive_changed()
 
     def _poll_drives(self):
         try:
-            drives, unique = scan_psp_drives()
+            scanned_drives, unique = scan_psp_drives()
+            drives = dict(scanned_drives)
+            if hasattr(self, '_custom_drives'):
+                for c_lbl, c_path in self._custom_drives.items():
+                    if os.path.exists(c_path):
+                        drives[c_lbl] = c_path
+                        if c_lbl not in unique:
+                            unique.append(c_lbl)
+
             if unique != getattr(self, '_last_drives_unique', None):
-                self._last_drives_unique = unique
+                self._last_drives_unique = list(unique)
                 self.drives = drives
                 self.drive_combo['values'] = unique
                 if unique:
                     current = self.drive_combo.get()
                     if current not in unique:
                         self.drive_combo.current(0)
-                        self.write_log(f"PSP connected: {unique[0]}")
+                        self.write_log(f"Drive updated: {self.drive_combo.get()}")
                 else:
                     self.drive_combo.set("No PSP Drive Found")
                     self.write_log("PSP disconnected.")
@@ -709,6 +785,9 @@ class PSPMediaSuite:
         self.root.after(2000, self._poll_drives)
 
     def _on_drive_changed(self):
+        drive = self._get_drive_path()
+        if drive:
+            ensure_psp_dirs(drive)
         if hasattr(self, 'music_local_panel'):
             self.music_local_panel.refresh()
         if hasattr(self, 'video_local_panel'):
