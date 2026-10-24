@@ -228,13 +228,13 @@ class LocalMediaManagerPanel(tk.Frame):
         ctrl_bar = tk.Frame(parent, bg=Theme.BG)
         ctrl_bar.pack(fill="x", pady=(0, 6))
 
-        # Grid / List View Toggle (icon-only with Google Material vector icons)
+        # Grid / List View Toggle (icon-only with larger Google Material vector icons)
         self.view_list_btn = create_flat_btn(ctrl_bar, "", icon_name="view_list", bg=Theme.SURFACE2, fg=Theme.TEXT_DIM,
-                                             command=lambda: self.set_view_mode("list"), padx=8, pady=5, tooltip="List View")
+                                             command=lambda: self.set_view_mode("list"), icon_size=20, padx=9, pady=5, tooltip="List View")
         self.view_list_btn.pack(side="right")
 
         self.view_grid_btn = create_flat_btn(ctrl_bar, "", icon_name="grid_view", bg=Theme.ACCENT, fg="#ffffff",
-                                             command=lambda: self.set_view_mode("grid"), padx=8, pady=5, tooltip="Grid View")
+                                             command=lambda: self.set_view_mode("grid"), icon_size=20, padx=9, pady=5, tooltip="Grid View")
         self.view_grid_btn.pack(side="right", padx=(0, 4))
 
         # Sort Dropdown
@@ -309,20 +309,20 @@ class LocalMediaManagerPanel(tk.Frame):
         self.tree.bind("<Double-Button-1>", lambda e: self.edit_thumbnail())
         self.tree.bind("<Button-3>", self._show_tree_context_menu)
 
-        # Bottom Action Bar with Google Material Icons (icon-only)
+        # Bottom Action Bar with Google Material Icons (larger icon-only)
         action_bar = tk.Frame(parent, bg=Theme.BG)
         action_bar.pack(fill="x")
 
         create_flat_btn(action_bar, "", icon_name="image", bg=Theme.SURFACE2, fg=Theme.ACCENT, hover_bg=Theme.BORDER,
-                        command=self.edit_thumbnail, padx=9, pady=5, tooltip="Edit Thumbnail").pack(side="left", padx=(0, 6))
+                        command=self.edit_thumbnail, icon_size=20, padx=10, pady=5, tooltip="Edit Thumbnail").pack(side="left", padx=(0, 6))
         create_flat_btn(action_bar, "", icon_name="edit", bg=Theme.ACCENT, fg="#ffffff", hover_bg=Theme.ACCENT2,
-                        command=self.rename_selected, padx=9, pady=5, tooltip="Rename File").pack(side="left", padx=(0, 6))
+                        command=self.rename_selected, icon_size=20, padx=10, pady=5, tooltip="Rename File").pack(side="left", padx=(0, 6))
         create_flat_btn(action_bar, "", icon_name="delete", bg=Theme.ERROR, fg="#ffffff", hover_bg=Theme.BORDER,
-                        command=self.delete_selected, padx=9, pady=5, tooltip="Delete File").pack(side="left", padx=(0, 6))
+                        command=self.delete_selected, icon_size=20, padx=10, pady=5, tooltip="Delete File").pack(side="left", padx=(0, 6))
         create_flat_btn(action_bar, "", icon_name="folder", bg=Theme.SURFACE2, fg=Theme.TEXT, hover_bg=Theme.BORDER,
-                        command=self.open_folder, padx=9, pady=5, tooltip="Open Folder").pack(side="left", padx=(0, 6))
+                        command=self.open_folder, icon_size=20, padx=10, pady=5, tooltip="Open Folder").pack(side="left", padx=(0, 6))
         create_flat_btn(action_bar, "", icon_name="sync", bg=Theme.SURFACE2, fg=Theme.TEXT, hover_bg=Theme.BORDER,
-                        command=self.refresh, padx=9, pady=5, tooltip="Refresh List").pack(side="left")
+                        command=self.refresh, icon_size=20, padx=10, pady=5, tooltip="Refresh List").pack(side="left")
 
         # Two-finger and mousewheel scrolling on list view tree
         def _scroll_tree(event):
@@ -371,8 +371,8 @@ class LocalMediaManagerPanel(tk.Frame):
     def set_view_mode(self, mode):
         self.view_mode = mode
         if mode == "grid":
-            grid_img = get_icon_photo("grid_view", size=16, color="#ffffff")
-            list_img = get_icon_photo("view_list", size=16, color=Theme.TEXT_DIM)
+            grid_img = get_icon_photo("grid_view", size=20, color="#ffffff")
+            list_img = get_icon_photo("view_list", size=20, color=Theme.TEXT_DIM)
             self.view_grid_btn.image = grid_img
             self.view_grid_btn.config(image=grid_img, bg=Theme.ACCENT)
             self.view_grid_btn._bg = Theme.ACCENT
@@ -385,8 +385,8 @@ class LocalMediaManagerPanel(tk.Frame):
             self.grid_scrollbar.pack(side="right", fill="y")
             self._render_grid_view()
         else:
-            grid_img = get_icon_photo("grid_view", size=16, color=Theme.TEXT_DIM)
-            list_img = get_icon_photo("view_list", size=16, color="#ffffff")
+            grid_img = get_icon_photo("grid_view", size=20, color=Theme.TEXT_DIM)
+            list_img = get_icon_photo("view_list", size=20, color="#ffffff")
             self.view_grid_btn.image = grid_img
             self.view_grid_btn.config(image=grid_img, bg=Theme.SURFACE2)
             self.view_grid_btn._bg = Theme.SURFACE2

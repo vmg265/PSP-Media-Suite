@@ -197,12 +197,12 @@ class PSPMediaSuite:
         inner_footer = tk.Frame(footer, bg=Theme.SURFACE)
         inner_footer.pack(fill="both", expand=True, padx=16, pady=8)
 
-        # Right: Send Queue Button with Google Material 'upload' icon
+        # Right: Sync Button with Google Material 'sync' icon
         self.send_btn = AccentButton(
             inner_footer,
-            "SEND QUEUE VIA USB",
-            icon_name="upload",
-            width=215,
+            "Sync",
+            icon_name="sync",
+            width=140,
             height=46,
             command=lambda: self.process_queue() if not self.is_processing else None
         )
@@ -276,33 +276,21 @@ class PSPMediaSuite:
         m_entry = tk.Entry(search_f, textvariable=self.music_search_var, fg=Theme.TEXT_DIM, font=FONT_BODY,
                            borderwidth=0, relief="flat", bg=Theme.SURFACE2, insertbackground=Theme.TEXT)
         m_entry.pack(side="left", fill="both", expand=True, ipady=8)
-        m_entry.insert(0, "Search YouTube Music or paste playlist URL…")
-        m_entry.bind("<FocusIn>",  lambda e: self.clear_ph(m_entry, "Search YouTube Music"))
-        m_entry.bind("<FocusOut>", lambda e: self.add_ph(m_entry, "Search YouTube Music or paste playlist URL…"))
+        m_entry.insert(0, "Search YT music or input playlist URL")
+        m_entry.bind("<FocusIn>",  lambda e: self.clear_ph(m_entry, "Search YT music"))
+        m_entry.bind("<FocusOut>", lambda e: self.add_ph(m_entry, "Search YT music or input playlist URL"))
         m_entry.bind("<Return>",   lambda e: self.search(self.music_search_var.get(), parent, "audio"))
 
         create_flat_btn(search_row, "Search", icon_name="search", bg=Theme.ACCENT, fg="#ffffff", hover_bg=Theme.ACCENT2,
                         command=lambda: self.search(self.music_search_var.get(), parent, "audio"),
                         font=("Segoe UI", 9, "bold")).pack(side="left", padx=(6, 0))
 
-        # Mode and Local Audio Bar
+        # Local Audio Action
         sub_row = tk.Frame(left_side, bg=Theme.BG)
         sub_row.pack(fill="x", pady=(0, 6))
 
-        self.music_mode_tracks_btn = create_flat_btn(
-            sub_row, "Songs", icon_name="music_note", bg=Theme.ACCENT, fg="#ffffff",
-            command=lambda: self._set_music_search_mode("tracks"), font=("Segoe UI", 8, "bold")
-        )
-        self.music_mode_tracks_btn.pack(side="left", padx=(0, 4))
-
-        self.music_mode_pl_btn = create_flat_btn(
-            sub_row, "Playlists", icon_name="queue_music", bg=Theme.SURFACE2, fg=Theme.TEXT_DIM,
-            command=lambda: self._set_music_search_mode("playlists"), font=("Segoe UI", 8, "bold")
-        )
-        self.music_mode_pl_btn.pack(side="left", padx=(0, 10))
-
         create_flat_btn(sub_row, "Add Local Music", icon_name="folder", bg=Theme.SURFACE2, fg=Theme.TEXT, hover_bg=Theme.BORDER,
-                        command=lambda: self.add_local_file("audio"), font=("Segoe UI", 8)).pack(side="right")
+                        command=lambda: self.add_local_file("audio"), font=("Segoe UI", 8)).pack(side="left")
 
         # Search Results Canvas
         results_outer = tk.Frame(left_side, bg=Theme.BORDER, padx=1, pady=1)
@@ -370,33 +358,21 @@ class PSPMediaSuite:
         v_entry = tk.Entry(search_f, textvariable=self.video_search_var, fg=Theme.TEXT_DIM, font=FONT_BODY,
                            borderwidth=0, relief="flat", bg=Theme.SURFACE2, insertbackground=Theme.TEXT)
         v_entry.pack(side="left", fill="both", expand=True, ipady=8)
-        v_entry.insert(0, "Search YouTube Videos or paste playlist URL…")
-        v_entry.bind("<FocusIn>",  lambda e: self.clear_ph(v_entry, "Search YouTube Videos"))
-        v_entry.bind("<FocusOut>", lambda e: self.add_ph(v_entry, "Search YouTube Videos or paste playlist URL…"))
+        v_entry.insert(0, "Search YT videos or input playlist URL")
+        v_entry.bind("<FocusIn>",  lambda e: self.clear_ph(v_entry, "Search YT videos"))
+        v_entry.bind("<FocusOut>", lambda e: self.add_ph(v_entry, "Search YT videos or input playlist URL"))
         v_entry.bind("<Return>",   lambda e: self.search(self.video_search_var.get(), parent, "video"))
 
         create_flat_btn(search_row, "Search", icon_name="search", bg=Theme.ACCENT, fg="#ffffff", hover_bg=Theme.ACCENT2,
                         command=lambda: self.search(self.video_search_var.get(), parent, "video"),
                         font=("Segoe UI", 9, "bold")).pack(side="left", padx=(6, 0))
 
-        # Mode and Local Video Bar
+        # Local Video Action
         sub_row = tk.Frame(left_side, bg=Theme.BG)
         sub_row.pack(fill="x", pady=(0, 6))
 
-        self.video_mode_videos_btn = create_flat_btn(
-            sub_row, "Videos", icon_name="movie", bg=Theme.ACCENT, fg="#ffffff",
-            command=lambda: self._set_video_search_mode("videos"), font=("Segoe UI", 8, "bold")
-        )
-        self.video_mode_videos_btn.pack(side="left", padx=(0, 4))
-
-        self.video_mode_pl_btn = create_flat_btn(
-            sub_row, "Playlists", icon_name="queue_music", bg=Theme.SURFACE2, fg=Theme.TEXT_DIM,
-            command=lambda: self._set_video_search_mode("playlists"), font=("Segoe UI", 8, "bold")
-        )
-        self.video_mode_pl_btn.pack(side="left", padx=(0, 10))
-
         create_flat_btn(sub_row, "Add Local Video", icon_name="folder", bg=Theme.SURFACE2, fg=Theme.TEXT, hover_bg=Theme.BORDER,
-                        command=lambda: self.add_local_file("video"), font=("Segoe UI", 8)).pack(side="right")
+                        command=lambda: self.add_local_file("video"), font=("Segoe UI", 8)).pack(side="left")
 
         # Results Canvas
         results_outer = tk.Frame(left_side, bg=Theme.BORDER, padx=1, pady=1)
@@ -779,7 +755,7 @@ class PSPMediaSuite:
         canvas.bind_all("<Button-5>",   _scroll)
 
     def search(self, q, parent, media_type):
-        if not q or q.startswith("Search YouTube"):
+        if not q or q.startswith("Search YT") or q.startswith("Search YouTube"):
             return
         for w in parent.results_frame.winfo_children():
             w.destroy()
@@ -788,10 +764,14 @@ class PSPMediaSuite:
         self.update_progress(15)
         self.write_log(f"Searching: {q[:50]}…")
 
-        if media_type == "audio":
-            actual_type = "playlist" if self.music_search_mode == "playlists" else "audio"
+        q_clean = q.strip().lower()
+        is_pl_url = (q_clean.startswith("http://") or q_clean.startswith("https://")) and (
+            "list=" in q_clean or "/playlist" in q_clean or "/album" in q_clean
+        )
+        if media_type in ("audio", "playlist"):
+            actual_type = "playlist" if is_pl_url else "audio"
         else:
-            actual_type = "video_playlist" if getattr(self, 'video_search_mode', 'videos') == "playlists" else "video"
+            actual_type = "video_playlist" if is_pl_url else "video"
         threading.Thread(target=self._search_thread, args=(q, parent, actual_type), daemon=True).start()
 
     def _search_thread(self, q, parent, media_type):
@@ -823,7 +803,13 @@ class PSPMediaSuite:
             thumb_url = r.get('thumbnail') or (r['thumbnails'][-1].get('url') if r.get('thumbnails') else None)
             r['raw_thumb_url'] = thumb_url
             r['pil_image'] = fetch_thumbnail_preview(thumb_url) if thumb_url else None
-            r['formatted_time'] = format_time(r.get('duration', 0))
+            if r.get('duration'):
+                r['formatted_time'] = format_time(r['duration'])
+            elif r.get('_type') == 'playlist' or 'list=' in (r.get('url') or ''):
+                count = len(r.get('entries', []))
+                r['formatted_time'] = f"Playlist ({count} items)" if count else "Playlist"
+            else:
+                r['formatted_time'] = format_time(0)
         self.root.after(0, lambda: self.render_chunk(chunk, parent, media_type))
 
     def render_chunk(self, chunk, parent, media_type):
@@ -833,11 +819,20 @@ class PSPMediaSuite:
             "playlist": ("Add Playlist", "#8b5cf6", "#ffffff"),
             "video_playlist": ("Add Video Playlist", "#8b5cf6", "#ffffff")
         }
-        btn_text, btn_bg, btn_fg = btn_map.get(media_type, ("Add", Theme.ACCENT, "#ffffff"))
 
         for item in chunk:
             if not item.get('url'):
                 continue
+            item_url = item.get('url', '')
+            is_item_pl = item.get('_type') == 'playlist' or "playlist?list=" in item_url or ("list=" in item_url and "watch?v=" not in item_url)
+
+            if media_type in ("audio", "playlist"):
+                item_media_type = "playlist" if (is_item_pl or media_type == "playlist") else "audio"
+            else:
+                item_media_type = "video_playlist" if (is_item_pl or media_type == "video_playlist") else "video"
+
+            btn_text, btn_bg, btn_fg = btn_map.get(item_media_type, ("Add", Theme.ACCENT, "#ffffff"))
+
             row = tk.Frame(parent.results_frame, bg=Theme.SURFACE, height=58)
             row.pack(fill="x", pady=1)
             row.pack_propagate(False)
@@ -857,7 +852,12 @@ class PSPMediaSuite:
                 tl.image = photo
                 tl.pack(fill="both", expand=True)
             else:
-                ic_name = "movie" if media_type == "video" else "music_note"
+                if item_media_type in ("playlist", "video_playlist"):
+                    ic_name = "queue_music"
+                elif item_media_type == "video":
+                    ic_name = "movie"
+                else:
+                    ic_name = "music_note"
                 ph = get_icon_photo(ic_name, size=20, color=Theme.TEXT_DIM)
                 tl = tk.Label(thumb_box, image=ph, bg=Theme.SURFACE2)
                 tl.image = ph
@@ -872,7 +872,7 @@ class PSPMediaSuite:
             tk.Label(info_f, text=item['formatted_time'], bg=Theme.SURFACE, fg=Theme.TEXT_DIM, font=FONT_SMALL, anchor="w").pack(fill="x")
 
             add_btn = create_flat_btn(row, btn_text, icon_name="add", bg=btn_bg, fg=btn_fg, hover_bg=Theme.ACCENT2,
-                                      command=lambda i=item, mt=media_type: self.add_to_queue(i, mt),
+                                      command=lambda i=item, imt=item_media_type: self.add_to_queue(i, imt),
                                       font=("Segoe UI", 9, "bold"), padx=12, pady=6)
             add_btn.pack(side="right", padx=10)
 
@@ -1225,7 +1225,7 @@ class PSPMediaSuite:
         has_errors = any(it.get('status') == 'error' for it in self.queue)
         if has_errors:
             self.root.after(0, lambda: self.update_progress(0))
-            self.root.after(0, lambda: self.send_btn.set_state("SEND QUEUE VIA USB", "normal"))
+            self.root.after(0, lambda: self.send_btn.set_state("Sync", "normal"))
             self.root.after(0, lambda: self.write_log("Finished with errors. Check queue badges or Activity Logs."))
             self.root.after(0, lambda: self._prog_label.config(text="Finished with errors", fg=Theme.ERROR))
             self.root.after(0, self._on_drive_changed)
@@ -1234,7 +1234,7 @@ class PSPMediaSuite:
             self.root.after(0, lambda: self.update_progress(100))
             self.root.after(0, lambda: self.mini_queue_bar.update_progress(100))
             self.root.after(0, lambda: self._queue_prog_lbl.config(text=f"Queue: {total} of {total} · 100%"))
-            self.root.after(0, lambda: self.send_btn.set_state("SEND QUEUE VIA USB", "normal"))
+            self.root.after(0, lambda: self.send_btn.set_state("Sync", "normal"))
             self.root.after(0, lambda: self.write_log("All done! Media synced to PSP successfully."))
             self.root.after(0, lambda: self._prog_label.config(text="All Media Synced Successfully", fg=Theme.SUCCESS))
             self.root.after(0, self._on_drive_changed)
