@@ -3,6 +3,7 @@ import sys
 import json
 import socket
 
+APP_VERSION = "v1.8.1"
 CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".psp_media_suite_prefs.json")
 
 def get_resource_path(relative_path):

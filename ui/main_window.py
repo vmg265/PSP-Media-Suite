@@ -30,6 +30,7 @@ from ui.dialogs import (
 )
 from ui.local_manager import LocalMediaManagerPanel
 from core.config import (
+    APP_VERSION,
     load_preferences,
     save_preferences,
     clean_filename,
@@ -61,7 +62,7 @@ class PSPMediaSuite:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("PSP Media Suite v1.7.2")
+        self.root.title(f"PSP Media Suite {APP_VERSION}")
         self.root.minsize(1040, 680)
 
         try:

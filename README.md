@@ -8,7 +8,7 @@ Telegram Support Group: https://t.me/psp_mediasuite
 <br>
 <br>
 
-**PSP Media Suite 1.8**
+**PSP Media Suite 1.8.1**
 <img width="1920" height="1080" alt="Screenshot 2026-10-17 12 44 02 PM" src="https://github.com/user-attachments/assets/1da776a8-8b67-4b6f-b8a3-83a81431f257" />
 
 
@@ -47,6 +47,7 @@ v1.6 PSP-MS onwards added creating a new , and managing items inside a, playlist
 10. v1.5 brings a cleaner ui experience and improvements both functional and aesthetic
 11. v1.6 bring management of playlists, music and video files that are already stored on the psp along with a UI redesign
 12. v1.7 brings web download feature. you can directly download mp3 and videos onto the psp's storage with a local web server running on the psp ms app on your pc
+13. v1.8 / v1.8.1 introduces modular core & UI architecture, video playlist synchronization, PSP Go dual-storage detection (Internal 16GB + M2 slot), custom storage folder picker, frosted header wave aesthetics, and macOS build support.
 
 **HOW TO USE?**
 - Open the PSP-MS (exe for windows, app package on Linux)

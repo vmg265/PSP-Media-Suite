@@ -8,7 +8,7 @@ from tkinter import messagebox, ttk, simpledialog
 from PIL import Image, ImageTk
 from ui.theme import Theme, FONT_BODY, FONT_MONO, FONT_SMALL
 from ui.components import create_flat_btn
-from core.config import get_resource_path
+from core.config import get_resource_path, APP_VERSION
 from core.device import get_music_dir, get_video_dir, get_playlist_dir
 from core.media_manager import (
     AUDIO_EXTS,
@@ -410,7 +410,7 @@ def show_about_dialog(parent, current_browser, is_dark_mode, on_theme_change, on
             pass
 
     tk.Label(inner, text="PSP Media Suite", font=("Segoe UI", 13, "bold"), fg=Theme.TEXT, bg=Theme.SURFACE).pack()
-    tk.Label(inner, text="v1.7.2  ·  PlayStation Portable Suite", font=("Segoe UI", 8), fg=Theme.TEXT_DIM, bg=Theme.SURFACE).pack(pady=(2, 12))
+    tk.Label(inner, text=f"{APP_VERSION}  ·  PlayStation Portable Suite", font=("Segoe UI", 8), fg=Theme.TEXT_DIM, bg=Theme.SURFACE).pack(pady=(2, 12))
 
     # Action Buttons: Activity Logs and Troubleshooter
     if on_show_logs:
